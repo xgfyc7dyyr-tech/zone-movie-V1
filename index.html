@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zonemovi - مرجع فیلم و سریال</title>
+    
+    <!-- ⚡ اسکریپت فوری تم -->
+    <script>
+        (function() {
+            try {
+                if (localStorage.getItem('zone_theme') === 'light') {
+                    document.documentElement.classList.add('light-mode');
+                }
+            } catch (e) {}
+        })();
+    </script>
+
+    <!-- فونت وزیرمتن -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+    
+    <!-- آیکون‌های Lucide -->
+    <script src="https://unpkg.com/lucide@0.344.0/dist/umd/lucide.min.js" defer></script>
+
+    <!-- 🌌 کتابخانه‌های سه بعدی (Three.js r75 + GSAP + THREE.BAS) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r75/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/175711/bas.js"></script>
+</head>
+<body>
+
+    <!-- 🔮 SVG GLASS REFRACTION & CHROMATIC ABERRATION FILTER -->
+    <svg style="display: none;" aria-hidden="true">
+      <filter id="glass-filter" x="-20%" y="-20%" width="140%" height="140%" filterUnits="objectBoundingBox">
+        <!-- 1. نقشه جابه‌جایی SVG (feImage) -->
+        <feImage result="map" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 336 96'><defs><linearGradient id='red' x1='100%' y1='0%' x2='0%' y2='0%'><stop offset='0%' stop-color='%23000'/><stop offset='100%' stop-color='red'/></linearGradient><linearGradient id='blue' x1='0%' y1='0%' x2='0%' y2='100%'><stop offset='0%' stop-color='%23000'/><stop offset='100%' stop-color='blue'/></linearGradient></defs><rect width='336' height='96' fill='black'/><rect width='336' height='96' rx='16' fill='url(%23red)'/><rect width='336' height='96' rx='16' fill='url(%23blue)' style='mix-blend-mode:difference'/><rect x='3.36' y='3.36' width='329.28' height='89.28' rx='16' fill='hsl(0 0% 50% / 0.93)' style='filter:blur(11px)'/></svg>" />
+
+        <!-- 2. سه جابه‌جایی متفاوت برای تفکیک کانال‌های رنگی RGB -->
+        <feDisplacementMap in="SourceGraphic" in2="map" scale="-25" xChannelSelector="R" yChannelSelector="G" result="dispRed" />
+        <feDisplacementMap in="SourceGraphic" in2="map" scale="-30" xChannelSelector="R" yChannelSelector="G" result="dispGreen" />
+        <feDisplacementMap in="SourceGraphic" in2="map" scale="-35" xChannelSelector="R" yChannelSelector="G" result="dispBlue" />
+
+        <!-- 3. تفکیک ماتریس رنگ قرمز، سبز و آبی -->
+        <feColorMatrix in="dispRed" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="red" />
+        <feColorMatrix in="dispGreen" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="green" />
+        <feColorMatrix in="dispBlue" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="blue" />
+
+        <!-- 4. ترکیب کانال‌ها به حالت Screen -->
+        <feBlend in="red" in2="green" mode="screen" result="rg" />
+        <feBlend in="rg" in2="blue" mode="screen" result="chromatic" />
+
+        <!-- 5. بلور جزئی لبه‌ها برای حس صیقلی لنز شیشه‌ای -->
+        <feGaussianBlur in="chromatic" stdDeviation="0.7" result="output" />
+      </filter>
+    </svg>
+
+    <!-- ═══════════════════════════════════════
+         COMPONENT: HEADER (شیشه‌ای واقعی با لنز SVG)
+    ═══════════════════════════════════════ -->
+    <header class="header" id="mainHeader">
+        <div class="header__inner glass-refraction">
+            
+            <!-- لوگو -->
+            <a href="#" class="logo" aria-label="صفحه اصلی zonemovi">
+                <span class="logo__icon"><i data-lucide="clapperboard"></i></span>
+                <div class="logo__text">
+                    <span class="logo__title">zonemovi</span>
+                    <span class="logo__subtitle">Zone Movies</span>
+                </div>
+            </a>
+
+            <!-- منوی اصلی دسکتاپ -->
+            <nav class="nav" aria-label="منوی اصلی">
+                <ul class="nav__list">
+                    <li><a href="#" class="nav__link nav__link--active"><i data-lucide="home"></i> خانه</a></li>
+                    <li><a href="#" class="nav__link"><i data-lucide="film"></i> فیلم‌ها</a></li>
+                    <li><a href="#" class="nav__link"><i data-lucide="tv"></i> سریال‌ها</a></li>
+                    <li><a href="#" class="nav__link"><i data-lucide="sparkles"></i> برترین‌ها</a></li>
+                </ul>
+            </nav>
+
+            <!-- سرچ پیشرفته شیشه‌ای -->
+            <div class="search-wrapper" id="searchWrapper">
+                <div class="search-container" id="searchContainer" aria-expanded="false">
+                    <button class="search-trigger" id="searchTrigger" aria-label="فتح کادر جستجو">
+                        <i data-lucide="search"></i>
+                    </button>
+
+                    <input
+                        type="text"
+                        class="search-input"
+                        id="searchInput"
+                        placeholder="جستجو در فیلم‌ها و سریال‌ها..."
+                        autocomplete="off"
+                        aria-label="کادر جستجو"
+                    >
+
+                    <button class="search-filter-btn" id="desktopFilterBtn" aria-label="فیلترهای پیشرفته">
+                        <i data-lucide="sliders-horizontal"></i>
+                        <span class="filter-badge hidden" id="desktopFilterBadge">0</span>
+                    </button>
+
+                    <button class="search-close" id="searchClose" aria-label="بستن جستجو">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+
+                <!-- باکس نتایج دراپ‌داون -->
+                <div class="search-results hidden" id="searchResults" aria-live="polite">
+                    <div class="search-results__header">
+                        <span>نتایج پیشنهاد شده</span>
+                        <span class="search-results__badge" id="resultsCount">۰ مورد</span>
+                        <button class="results-filter-link" id="dropdownFilterBtn">
+                            <i data-lucide="sliders-horizontal"></i>
+                            <span>فیلترها</span>
+                            <span class="filter-badge hidden" id="dropdownFilterBadge">0</span>
+                        </button>
+                    </div>
+                    <div class="search-results__list" id="resultsList"></div>
+                </div>
+            </div>
+
+            <!-- دکمه‌های اکشن (تم + ورود) -->
+            <div class="header__actions">
+                <button class="icon-btn" id="themeToggle" aria-label="تغییر تم">
+                    <i data-lucide="sun" class="sun-icon"></i>
+                    <i data-lucide="moon" class="moon-icon hidden"></i>
+                </button>
+
+                <a href="#" class="btn-profile" aria-label="ورود به حساب کاربری">
+                    <i data-lucide="user"></i>
+                    <span>ورود / ثبت‌نام</span>
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════
+         COMPONENT: iOS MOBILE BOTTOM DOCK (شیشه‌ای)
+    ═══════════════════════════════════════ -->
+    <nav class="ios-dock glass-refraction" aria-label="ناوبری موبایل">
+        <div class="dock-indicator" id="dockIndicator"></div>
+
+        <button class="dock-item dock-item--active" type="button">
+            <i data-lucide="film"></i>
+            <span>فیلم</span>
+        </button>
+        <button class="dock-item" type="button">
+            <i data-lucide="tv"></i>
+            <span>سریال</span>
+        </button>
+        <button class="dock-item" type="button">
+            <i data-lucide="bookmark"></i>
+            <span>علاقه‌مندی</span>
+        </button>
+        <button class="dock-item" type="button">
+            <i data-lucide="layout-grid"></i>
+            <span>دسته‌بندی</span>
+        </button>
+        <button class="dock-item" type="button">
+            <i data-lucide="settings"></i>
+            <span>تنظیمات</span>
+        </button>
+    </nav>
+
+    <!-- ═══════════════════════════════════════
+         COMPONENT: FILTER MODAL
+    ═══════════════════════════════════════ -->
+    <div class="filter-modal hidden" id="filterModal" aria-hidden="true">
+        <div class="filter-modal__card glass-refraction">
+            
+            <div class="filter-modal__header">
+                <div class="filter-modal__title">
+                    <i data-lucide="sliders-horizontal"></i>
+                    <span>جستجوی پیشرفته و فیلترها</span>
+                </div>
+                <button class="filter-modal__close" id="filterModalClose" aria-label="بستن فیلترها">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <div class="filter-modal__body">
+                <div class="filter-group">
+                    <label>نوع اثر:</label>
+                    <div class="filter-options">
+                        <button class="filter-chip filter-chip-type active" data-type="all">همه</button>
+                        <button class="filter-chip filter-chip-type" data-type="movie">سینمایی</button>
+                        <button class="filter-chip filter-chip-type" data-type="series">سریال</button>
+                        <button class="filter-chip filter-chip-type" data-type="animation">انیمیشن</button>
+                        <button class="filter-chip filter-chip-type" data-type="anime">انیمه</button>
+                        <button class="filter-chip filter-chip-type" data-type="documentary">مستند</button>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label>ژانرها (انتخاب چندتایی):</label>
+                    <div class="filter-options">
+                        <button class="filter-chip filter-chip-genre" data-genre="اکشن">⚔️ اکشن</button>
+                        <button class="filter-chip filter-chip-genre" data-genre="کمدی">😂 کمدی</button>
+                        <button class="filter-chip filter-chip-genre" data-genre="ترسناک">🧟 ترسناک</button>
+                        <button class="filter-chip filter-chip-genre" data-genre="علمی-تخیلی">🚀 علمی-تخیلی</button>
+                        <button class="filter-chip filter-chip-genre" data-genre="درام">🎭 درام</button>
+                        <button class="filter-chip filter-chip-genre" data-genre="عاشقانه">❤️ عاشقانه</button>
+                        <button class="filter-chip filter-chip-genre" data-genre="معمایی">🔍 معمایی</button>
+                        <button class="filter-chip filter-chip-genre" data-genre="تاریخی">🏛️ تاریخی</button>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label>🎙️ صوت و زیرنویس:</label>
+                    <div class="filter-options">
+                        <button class="filter-chip filter-chip-audio" data-audio="dubbed">🎙️ دوبله فارسی</button>
+                        <button class="filter-chip filter-chip-audio" data-audio="subtitled">📝 زیرنویس چسبیده</button>
+                        <button class="filter-chip filter-chip-audio" data-audio="original">🔊 زبان اصلی</button>
+                    </div>
+                </div>
+
+                <div class="filter-grid">
+                    <div class="filter-group">
+                        <label>سال ساخت:</label>
+                        <select class="filter-select" id="filterYearSelect">
+                            <option value="">همه سال‌ها</option>
+                            <option value="2026">2026</option>
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="older">قدیمی‌تر</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>کیفیت:</label>
+                        <select class="filter-select" id="filterQualitySelect">
+                            <option value="">همه کیفیت‌ها</option>
+                            <option value="4K">4K Bluray</option>
+                            <option value="1080p">1080p Full HD</option>
+                            <option value="720p">720p HD</option>
+                            <option value="WEB-DL">WEB-DL</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="filter-grid">
+                    <div class="filter-group">
+                        <label>🌍 کشور سازنده:</label>
+                        <select class="filter-select" id="filterCountrySelect">
+                            <option value="">همه کشورها</option>
+                            <option value="USA">آمریکا</option>
+                            <option value="KR">کره جنوبی</option>
+                            <option value="JP">ژاپن</option>
+                            <option value="IR">ایران</option>
+                            <option value="UK">انگلیس</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>📺 شبکه / پلتفرم:</label>
+                        <select class="filter-select" id="filterPlatformSelect">
+                            <option value="">همه پلتفرم‌ها</option>
+                            <option value="netflix">Netflix</option>
+                            <option value="hbo">HBO / Max</option>
+                            <option value="apple">Apple TV+</option>
+                            <option value="disney">Disney+</option>
+                            <option value="amazon">Amazon Prime</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="filter-grid">
+                    <div class="filter-group">
+                        <label>🔄 مرتب‌سازی بر اساس:</label>
+                        <select class="filter-select" id="filterSortSelect">
+                            <option value="newest">جدیدترین‌ها (Release Date)</option>
+                            <option value="popular">محبوب‌ترین‌ها / بیشترین بازدید</option>
+                            <option value="rating">بالاترین امتیاز IMDb</option>
+                            <option value="updated">جدیدترین بروزرسانی‌ها</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>⭐️ امتیاز IMDb:</label>
+                        <select class="filter-select" id="filterRatingSelect">
+                            <option value="">همه امتیازها</option>
+                            <option value="8">بالای ۸ (عالی)</option>
+                            <option value="7">بالای ۷ (خوب)</option>
+                            <option value="6">بالای ۶ (متوسط)</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="filter-modal__footer">
+                <button class="btn-reset-filter" id="btnResetFilter">پاکسازی فیلترها</button>
+                <button class="btn-apply-filter" id="btnApplyFilter">اعمال فیلترها</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MAIN APP CONTAINER -->
+    <main id="appContent" class="main-content">
+        
+        <!-- ═══════════════════════════════════════
+             COMPONENT: 3D SHADER HERO SLIDER
+        ═══════════════════════════════════════ -->
+        <section class="hero-cinematic" id="heroCinematic">
+            
+            <div id="three-container"></div>
+            <div class="hero-cinematic__overlay"></div>
+
+            <div class="hero-cinematic__container">
+                
+                <div class="hero-cinematic__info" id="heroCinematicInfo">
+                    <div class="hero-year-row">
+                        <i data-lucide="calendar"></i>
+                        <span id="heroYear">2013</span>
+                    </div>
+
+                    <h1 class="hero-cinematic__title" id="heroTitle">Rick and Morty</h1>
+
+                    <div class="hero-imdb-badge">
+                        <span class="imdb-score" id="heroRating">9.0/10</span>
+                        <span class="imdb-text">IMDb</span>
+                    </div>
+
+                    <p class="hero-cinematic__desc" id="heroDesc">
+                        ماجراجویی‌های خطرناک ریک، دانشمند دیوانه و پدربزرگش به همراه نوه کم‌جراتش مورتی در ابعاد مختلف جهان...
+                    </p>
+
+                    <div class="hero-cinematic__buttons">
+                        <button class="btn-hero-play" id="heroWatchBtn">
+                            <i data-lucide="play"></i>
+                            <span>تماشای آنلاین</span>
+                        </button>
+                        <button class="btn-hero-add" title="افزودن به علاقه‌مندی‌ها">
+                            <i data-lucide="plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="hero-3d-wrapper">
+                    <div class="hero-3d-track" id="hero3dTrack"></div>
+                </div>
+
+                <div class="hero-controls-pill glass-refraction">
+                    <button class="hero-ctrl-btn" id="heroPrevBtn" aria-label="قبلی">
+                        <i data-lucide="chevron-right"></i>
+                    </button>
+                    <div class="hero-dots-container" id="heroDots"></div>
+                    <button class="hero-ctrl-btn" id="heroNextBtn" aria-label="بعدی">
+                        <i data-lucide="chevron-left"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ═══════════════════════════════════════
+             COMPONENT: MOVIE GRIDS & SLIDERS (فاز ۳)
+        ═══════════════════════════════════════ -->
+        <div id="movieGridSections"></div>
+
+    </main>
+
+    <!-- ═══════════════════════════════════════
+         COMPONENT: GLASSMORPHIC FOOTER (فاز ۴)
+    ═══════════════════════════════════════ -->
+    <footer class="footer">
+        <div class="footer__inner glass-refraction">
+            <div class="footer__grid">
+                
+                <!-- بیوگرافی برند -->
+                <div class="footer__col">
+                    <div class="footer__brand">
+                        <div class="logo__icon"><i data-lucide="clapperboard"></i></div>
+                        <span class="logo__title">zonemovi</span>
+                    </div>
+                    <p class="footer__desc">
+                        زون‌مووی مرجع شیک و مدرن فیلم و سریال‌های ایرانی و خارجی است. ما تلاش می‌کنیم با ارائه بهترین بستر استریم آنلاین و دانلود سریع، محیطی لوکس و کم‌نظیر برای علاقه‌مندان به سینما ایجاد کنیم.
+                    </p>
+                    <div class="footer__socials">
+                        <a href="#" class="social-btn social-btn--telegram" aria-label="تلگرام"><i data-lucide="send"></i></a>
+                        <a href="#" class="social-btn social-btn--instagram" aria-label="اینستاگرام"><i data-lucide="instagram"></i></a>
+                        <a href="#" class="social-btn social-btn--youtube" aria-label="یوتیوب"><i data-lucide="youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- دسترسی سریع -->
+                <div class="footer__col">
+                    <h4 class="footer__title">بخش‌های اصلی</h4>
+                    <div class="footer__links">
+                        <a href="#" class="footer__link"><i data-lucide="chevron-left" style="width: 14px;"></i> صفحه اصلی</a>
+                        <a href="#" class="footer__link"><i data-lucide="chevron-left" style="width: 14px;"></i> لیست فیلم‌ها</a>
+                        <a href="#" class="footer__link"><i data-lucide="chevron-left" style="width: 14px;"></i> آرشیو سریال‌ها</a>
+                        <a href="#" class="footer__link"><i data-lucide="chevron-left" style="width: 14px;"></i> برترین‌های IMDb</a>
+                    </div>
+                </div>
+
+                <!-- دسته بندی ها -->
+                <div class="footer__col">
+                    <h4 class="footer__title">ژانرهای محبوب</h4>
+                    <div class="footer__links">
+                        <a href="#" class="footer__link"><i data-lucide="chevron-left" style="width: 14px;"></i> فیلم‌های اکشن</a>
+                        <a href="#" class="footer__link"><i data-lucide="chevron-left" style="width: 14px;"></i> آثار کمدی</a>
+                        <a href="#" class="footer__link"><i data-lucide="chevron-left" style="width: 14px;"></i> فیلم‌های ترسناک</a>
+                        <a href="#" class="footer__link"><i data-lucide="chevron-left" style="width: 14px;"></i> علمی تخیلی</a>
+                    </div>
+                </div>
+
+                <!-- تماس و خبرنامه -->
+                <div class="footer__col">
+                    <h4 class="footer__title">در ارتباط باشید</h4>
+                    <p class="footer__desc">
+                        برای دریافت آخرین اخبار فیلم‌ها و هشدارهای بروزرسانی آدرس ایمیل خود را وارد نمایید.
+                    </p>
+                    <div style="display: flex; gap: 8px; margin-top: 8px;">
+                        <input type="email" placeholder="ایمیل شما..." style="flex:1; padding:10px 14px; background:rgba(255,255,255,0.04); border:1px solid var(--glass-border); border-radius:var(--radius-pill); font-family:inherit; font-size:0.8rem; color:#fff; outline:none;">
+                        <button style="padding:10px 18px; background:var(--primary); border-radius:var(--radius-pill); color:#fff; font-weight:700; font-size:0.8rem; box-shadow:0 4px 15px var(--primary-glow); cursor:pointer;">عضویت</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- کپی رایت پایین -->
+            <div class="footer__bottom">
+                <div>
+                    © <span id="footerYear">2026</span> - تمامی حقوق مادی و معنوی برای پلتفرم <span style="color:var(--primary); font-weight:700;">zonemovi</span> محفوظ است.
+                </div>
+                <div class="footer__copyright">
+                    ساخته شده با <i data-lucide="heart" style="fill: var(--accent);"></i> برای عاشقان سینما
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- دکمه شناور بازگشت به بالا شیشه‌ای -->
+    <button class="back-to-top" id="backToTopBtn" aria-label="بازگشت به بالای صفحه">
+        <i data-lucide="arrow-up"></i>
+    </button>
+
+    <!-- ورودی مرکزی Vite -->
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>

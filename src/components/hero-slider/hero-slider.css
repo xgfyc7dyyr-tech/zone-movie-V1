@@ -1,0 +1,356 @@
+/* ═══════════════════════════════════════════════════════════
+   COMPONENT: 100% FULL-WIDTH 4K HERO SLIDER (RESPONSIVE FIXED)
+   ═══════════════════════════════════════════════════════════ */
+.hero-cinematic {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    margin-top: calc(-1 * var(--header-height-default) - 30px);
+    margin-bottom: 50px;
+    min-height: 82vh;
+    overflow: hidden;
+    background: #090a0f;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 110px 48px 40px 48px;
+}
+
+#three-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+#three-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+    object-fit: cover;
+}
+
+.hero-cinematic__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(9, 10, 15, 0.15) 0%,
+        rgba(9, 10, 15, 0.65) 50%,
+        rgba(9, 10, 15, 0.95) 100%
+    );
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-cinematic__container {
+    position: relative;
+    z-index: 2;
+    max-width: 1600px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    height: 100%;
+    min-height: 480px;
+    padding-bottom: 45px;
+    pointer-events: none;
+}
+
+.hero-cinematic__container * {
+    pointer-events: auto;
+}
+
+.hero-cinematic__info {
+    flex: 1;
+    max-width: 580px;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    z-index: 5;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.hero-year-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+.hero-year-row i {
+    width: 18px;
+    height: 18px;
+    color: var(--primary);
+}
+
+.hero-cinematic__title {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1.1;
+    text-shadow: 0 4px 25px rgba(0, 0, 0, 0.9);
+}
+
+.hero-imdb-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+}
+
+.imdb-text {
+    background: #f59e0b;
+    color: #000000;
+    font-size: 0.8rem;
+    font-weight: 900;
+    padding: 2px 7px;
+    border-radius: 4px;
+}
+
+.imdb-score {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.hero-cinematic__desc {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-weight: 500;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.hero-cinematic__buttons {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 8px;
+}
+
+.btn-hero-play {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 28px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+    border-radius: var(--radius-pill);
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #fff;
+    box-shadow: 0 4px 25px var(--primary-glow);
+    transition: var(--transition-fast);
+}
+
+.btn-hero-play:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px var(--primary-glow);
+}
+
+.btn-hero-add {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    transition: var(--transition-fast);
+}
+
+.btn-hero-add:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.hero-3d-wrapper {
+    flex: 1;
+    max-width: 520px;
+    height: 360px;
+    perspective: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 5;
+}
+
+.hero-3d-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-style: preserve-3d;
+}
+
+.hero-3d-card {
+    position: absolute;
+    width: 185px;
+    height: 265px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+                opacity 0.4s ease,
+                filter 0.4s ease,
+                border-color 0.3s ease;
+    will-change: transform, opacity;
+}
+
+.hero-3d-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-3d-card.active {
+    border-color: #ffffff;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.8), 0 0 35px var(--primary-glow);
+}
+
+/* نوار کنترل کپسولی */
+.hero-controls-pill {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 22px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-pill);
+    box-shadow: var(--glass-shadow);
+}
+
+.hero-ctrl-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: var(--transition-fast);
+}
+
+.hero-ctrl-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.hero-dots-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.hero-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.25);
+    cursor: pointer;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.hero-dot.active {
+    width: 24px;
+    background: var(--primary);
+    box-shadow: 0 0 12px var(--primary-glow);
+}
+
+/* 📱 اصلاح کامل واکنش‌گرایی موبایل (حل تداخل اسکرین‌شات) */
+@media (max-width: 992px) {
+    .hero-cinematic {
+        min-height: auto;
+        padding: 90px 20px 80px 20px;
+    }
+    .hero-cinematic__container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+    }
+    .hero-cinematic__info {
+        max-width: 100%;
+        align-items: center;
+        text-align: center;
+    }
+    .hero-cinematic__title {
+        font-size: 2rem;
+    }
+    .hero-3d-wrapper {
+        max-width: 100%;
+        height: 220px;
+    }
+    .hero-3d-card {
+        width: 135px;
+        height: 195px;
+    }
+}
+
+@media (max-width: 640px) {
+    .hero-cinematic {
+        min-height: 560px;
+        padding: 85px 12px 75px 12px; /* افزودن فضا در پایین برای نوار کنترل */
+    }
+
+    .hero-cinematic__container {
+        min-height: 440px;
+        gap: 12px;
+        padding-bottom: 55px; /* ایجاد فاصله استاندارد بین کارت و دکمه‌ها */
+    }
+
+    .hero-3d-wrapper {
+        height: 190px;
+        margin-bottom: 20px; /* بالا بردن کارت‌ها جهت جلوگیری از تداخل */
+    }
+
+    .hero-3d-card {
+        width: 120px;
+        height: 175px;
+    }
+
+    .hero-controls-pill {
+        bottom: 6px; /* انتقال نوار کنترل به پایین‌تر، کاملاً زیر کارت */
+        padding: 4px 14px;
+        gap: 10px;
+    }
+
+    .hero-ctrl-btn {
+        width: 30px;
+        height: 30px;
+    }
+
+    .hero-dot {
+        width: 6px;
+        height: 6px;
+    }
+
+    .hero-dot.active {
+        width: 18px;
+    }
+}

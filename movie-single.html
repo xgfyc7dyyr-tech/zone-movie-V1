@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>مرد عنکبوتی: روز جدید - جزئیات و دانلود اثر | zonemovi</title>
+    
+    <!-- ⚡ اسکریپت فوری تم -->
+    <script>
+        (function() {
+            try {
+                if (localStorage.getItem('zone_theme') === 'light') {
+                    document.documentElement.classList.add('light-mode');
+                }
+            } catch (e) {}
+        })();
+    </script>
+
+    <!-- فونت وزیرمتن -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+    
+    <!-- آیکون‌های Lucide -->
+    <script src="https://unpkg.com/lucide@0.344.0/dist/umd/lucide.min.js" defer></script>
+</head>
+<body>
+
+    <!-- 🔮 ۱. هاله نور و رنگ داینامیک پس‌زمینه سراسری دو لایه ضدلگ (Dual Buffer) -->
+    <div class="global-ambient-backdrop" id="ambientBackdropA" style="background-image: url('https://image.tmdb.org/t/p/original/kkcwhgSFd81QDlXo8ytrpHPQjhy.jpg'); opacity: 1;"></div>
+    <div class="global-ambient-backdrop" id="ambientBackdropB" style="opacity: 0;"></div>
+    <div class="global-ambient-overlay"></div>
+
+    <!-- ═══════════════════════════════════════
+         COMPONENT: HEADER (شیشه‌ای ۳۸٪)
+    ═══════════════════════════════════════ -->
+    <header class="header" id="mainHeader">
+        <div class="header__inner glass-refraction">
+            
+            <a href="/" class="logo" aria-label="صفحه اصلی zonemovi">
+                <span class="logo__icon"><i data-lucide="clapperboard"></i></span>
+                <div class="logo__text">
+                    <span class="logo__title">zonemovi</span>
+                    <span class="logo__subtitle">Zone Movies</span>
+                </div>
+            </a>
+
+            <nav class="nav" aria-label="منوی اصلی">
+                <ul class="nav__list">
+                    <li><a href="/" class="nav__link"><i data-lucide="home"></i> خانه</a></li>
+                    <li><a href="#" class="nav__link nav__link--active"><i data-lucide="film"></i> فیلم‌ها</a></li>
+                    <li><a href="#" class="nav__link"><i data-lucide="tv"></i> سریال‌ها</a></li>
+                    <li><a href="#" class="nav__link"><i data-lucide="sparkles"></i> برترین‌ها</a></li>
+                </ul>
+            </nav>
+
+            <div class="search-wrapper" id="searchWrapper">
+                <div class="search-container" id="searchContainer" aria-expanded="false">
+                    <button class="search-trigger" id="searchTrigger" aria-label="فتح کادر جستجو">
+                        <i data-lucide="search"></i>
+                    </button>
+                    <input type="text" class="search-input" id="searchInput" placeholder="جستجو در فیلم‌ها..." autocomplete="off">
+                    <button class="search-filter-btn" id="desktopFilterBtn"><i data-lucide="sliders-horizontal"></i></button>
+                    <button class="search-close" id="searchClose"><i data-lucide="x"></i></button>
+                </div>
+                <div class="search-results hidden" id="searchResults">
+                    <div class="search-results__header">
+                        <span>نتایج پیشنهادی</span>
+                        <span class="search-results__badge" id="resultsCount">0 مورد</span>
+                    </div>
+                    <div class="search-results__list" id="resultsList"></div>
+                </div>
+            </div>
+
+            <div class="header__actions">
+                <button class="icon-btn" id="themeToggle" aria-label="تغییر تم">
+                    <i data-lucide="sun" class="sun-icon"></i>
+                    <i data-lucide="moon" class="moon-icon hidden"></i>
+                </button>
+                <a href="#" class="btn-profile"><i data-lucide="user"></i><span>ورود</span></a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════
+         COMPONENT: iOS MOBILE BOTTOM DOCK
+    ═══════════════════════════════════════ -->
+    <nav class="ios-dock glass-refraction" aria-label="ناوبری موبایل">
+        <div class="dock-indicator" id="dockIndicator"></div>
+        <button class="dock-item dock-item--active" type="button"><i data-lucide="film"></i><span>فیلم</span></button>
+        <button class="dock-item" type="button"><i data-lucide="tv"></i><span>سریال</span></button>
+        <button class="dock-item" type="button"><i data-lucide="bookmark"></i><span>نشان‌شده</span></button>
+        <button class="dock-item" type="button"><i data-lucide="layout-grid"></i><span>منو</span></button>
+        <button class="dock-item" type="button"><i data-lucide="settings"></i><span>تنظیمات</span></button>
+    </nav>
+
+    <!-- MAIN APP CONTAINER -->
+    <main id="appContent" class="main-content">
+        
+        <!-- ویدیوی زنده هیرو -->
+        <div class="hero-media-wrapper">
+            <img id="heroPoster" class="hero-poster" src="https://image.tmdb.org/t/p/original/kkcwhgSFd81QDlXo8ytrpHPQjhy.jpg" alt="Poster">
+            <video id="heroVideo" class="hero-video" src="https://imdb-video.media-imdb.com/mc/vi224643865/vi224643865_720p.mp4?Expires=1787172553&Signature=DVz2iYj8srC~41~RB~qTYs42cPSirfm2DtndQt-ISq4h9JtxTFhVmvngk8xkNHeiob9z36XHxXoIrCV0DUYvYJMrUlQ~EOVMEvRRR6~nVG7vmCosJk1e6d3J9br26Xt501jpwc-VtDoEHYeCEnz1bh6d4NBG3-Tr9BdZhm1ZEAqDQ-dS7yJ80RtCH~VxeXFDsEMvAFXPAYw7-XVzt28xmivEBRd-dNhLif-502JaPYkpruOv8YKD49rYdWya4CyRmneKKtcjs6dlkYfvPpNsV~3hLWedpyX4JQdy5aOAa4GL32xpjov5zXCQdfYTaYgI3GPEs9LJe9dF2jwmCF7T5g__&Key-Pair-Id=APKAIFLZBVQZ24NQH3KA" playsinline muted></video>
+        </div>
+
+        <div class="single-container">
+
+            <!-- 🧭 ۱. مسیر ناوبری شیشه‌ای سمت راست (RTL) -->
+            <nav class="breadcrumb-container" aria-label="مسیر ناوبری">
+                <ul class="breadcrumb-list">
+                    <li><a href="/" class="breadcrumb-link"><i data-lucide="home" style="width:14px; margin-left:4px; vertical-align:middle;"></i>خانه</a></li>
+                    <li><i data-lucide="chevron-left" class="breadcrumb-separator"></i></li>
+                    <li><a href="#" class="breadcrumb-link">فیلم‌ها</a></li>
+                    <li><i data-lucide="chevron-left" class="breadcrumb-separator"></i></li>
+                    <li class="breadcrumb-active">مرد عنکبوتی: روز جدید</li>
+                </ul>
+            </nav>
+            
+            <!-- چیدمان هیرو -->
+            <div class="cinejoy-hero-layout">
+                
+                <!-- 👈 ستون راست: اطلاعات فیلم -->
+                <div class="cinejoy-main-meta">
+
+                    <!-- عنوان فیلم با لوگوی ادغام شده -->
+                    <div class="cinejoy-title-container">
+                        <h1 class="sr-only">مرد عنکبوتی: روز جدید - Spider-Man: Brand New Day</h1>
+                        <img src="https://image.tmdb.org/t/p/w500/vbZcDHC5IFylYuRnp3eyOs5rTV1.png" class="cinejoy-title-png" alt="Spider-Man Brand New Day">
+                    </div>
+
+                    <!-- سطر مشخصات و ژانرها -->
+                    <div class="cinejoy-meta-line">
+                        <span>2026</span>
+                        <span class="meta-bullet">•</span>
+                        <span>2 ساعت و 25 دقیقه</span>
+                        <span class="meta-bullet">•</span>
+                        <a href="./genres.html#adventure" class="meta-genre-link">ماجراجویی</a>
+                        <span class="meta-bullet">•</span>
+                        <a href="./genres.html#action" class="meta-genre-link">اکشن</a>
+                        <span class="meta-bullet">•</span>
+                        <a href="./genres.html#scifi" class="meta-genre-link">علمی تخیلی</a>
+                    </div>
+
+                    <!-- نمرات ۴گانه معتبر -->
+                    <div class="cinejoy-ratings-pack">
+                        <div class="rating-pill has-rating-tooltip" data-tooltip="پایگاه داده TMDB">
+                            <div class="rating-brand-badge">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Tmdb.new.logo.svg" alt="TMDB" class="rating-logo-img rating-logo-img--tmdb" onerror="this.style.display='none'">
+                            </div>
+                            <span class="rating-val" style="color:#01b4e4;">7.9</span>
+                        </div>
+                        <div class="rating-pill has-rating-tooltip" data-tooltip="بانک اطلاعات اینترنتی فیلم‌ها (IMDb)">
+                            <div class="rating-brand-badge">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg" alt="IMDb" class="rating-logo-img rating-logo-img--imdb">
+                            </div>
+                            <span class="rating-val">8.2</span>
+                        </div>
+                        <div class="rating-pill has-rating-tooltip" data-tooltip="نمره منتقدان راتن تومیتوز (Rotten Tomatoes)">
+                            <div class="rating-brand-badge">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Rotten_Tomatoes.svg" alt="Rotten Tomatoes" class="rating-logo-img rating-logo-img--tomato">
+                            </div>
+                            <span class="rating-val">90%</span>
+                        </div>
+                        <div class="rating-pill has-rating-tooltip" data-tooltip="میزان رضایت تماشاگران (Audience Score)">
+                            <div class="rating-brand-badge">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Rotten_Tomatoes_positive_audience.svg" alt="Audience Score" class="rating-logo-img rating-logo-img--audience">
+                            </div>
+                            <span class="rating-val">98%</span>
+                        </div>
+                    </div>
+
+                    <!-- خلاصه داستان فیلم -->
+                    <div class="cinejoy-summary-wrapper">
+                        <p class="cinejoy-summary" id="movieSummary">
+                            مبارزه تمام‌وقت با جرم و جنایت به عنوان مرد عنکبوتی در دنیایی که او را به یاد نمی‌آورد - و فشار دیدن دوستان قدیمی‌اش که بدون او به زندگی خود ادامه می‌دهند - باعث ایجاد تغییری در پیتر پارکر می‌شود که شاید او قدرت کنترل آن را نداشته باشد. اما این دگرگونی همچنین ممکن است تنها چیزی باشد که جلو سقوط او را می‌گیرد و او را وارد چالشی بزرگ‌تر از گذشته می‌کند...
+                        </p>
+                        <button class="read-more-link" id="btnReadMore" type="button">
+                            <span>ادامه مطلب</span>
+                            <i data-lucide="chevron-down"></i>
+                        </button>
+                    </div>
+
+                    <!-- دکمه‌های کپسولی اکشن -->
+                    <div class="cinejoy-actions-row">
+                        <button class="btn-cinejoy-play" id="btnPlayMainTrailer">
+                            <i data-lucide="play" style="fill: #000; width:16px; height:16px;"></i>
+                            <span>پخش تریلر</span>
+                        </button>
+                        <button class="btn-cinejoy-pill-action" title="افزودن به لیست من">
+                            <i data-lucide="bookmark"></i>
+                            <span>نشان کردن</span>
+                        </button>
+                        <a href="#downloadSection" class="btn-cinejoy-pill-action">
+                            <i data-lucide="download"></i>
+                            <span>دانلود مستقیم</span>
+                        </a>
+                        
+                        <!-- 🔊 دکمه کنترل صدا با نوار پیشرفت حلقه‌ای -->
+                        <button class="action-circle-btn action-circle-btn--sound is-loading" id="muteToggleBtn" title="وصل کردن صدای پیش‌نمایش" aria-label="کنترل صدای پیش‌نمایش">
+                            <svg class="sound-progress-svg" viewBox="0 0 44 44">
+                                <circle class="sound-progress-bg" cx="22" cy="22" r="20"></circle>
+                                <circle class="sound-progress-bar" id="soundProgressBar" cx="22" cy="22" r="20"></circle>
+                            </svg>
+                            <svg class="sound-icon sound-icon--muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                <line x1="22" x2="16" y1="9" y2="15"></line>
+                                <line x1="16" x2="22" y1="9" y2="15"></line>
+                            </svg>
+                            <svg class="sound-icon sound-icon--unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                            </svg>
+                            <svg class="sound-icon sound-icon--replay" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                                <path d="M3 3v5h5"></path>
+                            </svg>
+                        </button>
+
+                        <button class="action-circle-btn" id="btnLikeReact" data-count="1542" title="افزودن به علاقه‌مندی‌ها">
+                            <i data-lucide="heart" class="heart-icon"></i>
+                        </button>
+
+                        <!-- منوی اشتراک‌گذاری -->
+                        <div class="share-wrapper-btn">
+                            <button class="action-circle-btn" id="btnShare" title="اشتراک‌گذاری"><i data-lucide="share-2"></i></button>
+                            <div class="share-dropdown hidden glass-refraction" id="shareDropdown">
+                                <button class="share-drop-item" id="btnCopyLink"><i data-lucide="copy"></i>کپی لینک صفحه</button>
+                                <a href="https://t.me/share/url?url=https://zonemovi.com/movie-single&text=Spiderman" target="_blank" class="share-drop-item"><i data-lucide="send"></i>اشتراک در تلگرام</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 🌟 ویجت امتیازدهی کاربران با سقف ۳ بار ویرایش و نمایش نمره رسمی ZM -->
+                    <div class="user-star-rating-box glass-refraction" id="userStarRatingBox" style="margin-top: 10px;">
+                        <div class="rating-header-row">
+                            <span class="star-rating-title">امتیاز شما به این اثر:</span>
+                            <span class="rating-status-badge hidden" id="ratingStatusBadge">فوق‌العاده</span>
+                        </div>
+                        <div class="rating-stars" id="ratingStars">
+                            <button type="button" class="star-btn" data-value="1" aria-label="1 ستاره"><i data-lucide="star"></i></button>
+                            <button type="button" class="star-btn" data-value="2" aria-label="2 ستاره"><i data-lucide="star"></i></button>
+                            <button type="button" class="star-btn" data-value="3" aria-label="3 ستاره"><i data-lucide="star"></i></button>
+                            <button type="button" class="star-btn" data-value="4" aria-label="4 ستاره"><i data-lucide="star"></i></button>
+                            <button type="button" class="star-btn" data-value="5" aria-label="5 ستاره"><i data-lucide="star"></i></button>
+                        </div>
+                        <div class="zm-score-row">
+                            <span class="zm-logo-badge">ZM</span>
+                            <span>میانگین کاربران زون‌مووی: <strong>7.9</strong> / 10 (147 رأی)</span>
+                        </div>
+                    </div>
+
+                    <!-- 🌟 کارت وضعیت ثبت نهایی نمره با بج ZM و مدیریت ویرایش -->
+                    <div class="user-voted-confirmed-card glass-refraction hidden" id="userVotedConfirmedCard">
+                        <div class="user-voted-top">
+                            <div class="user-voted-info">
+                                <i data-lucide="check-circle-2"></i>
+                                <span id="confirmedUserScoreText">امتیاز شما: 10 / 10</span>
+                            </div>
+                            <button class="btn-edit-rating" id="btnEditRating" type="button">ویرایش نمره (3 فرصت)</button>
+                        </div>
+                        <div class="user-voted-meta-zm">
+                            <span class="zm-logo-badge">ZM</span>
+                            <span>نمره جامعه زون‌مووی: <strong>7.9</strong> / 10 (147 رأی ثبت شده)</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- 👉 ستون چپ: پنل شناسنامه شناور خطی یکپارچه -->
+                <div class="cinejoy-sidebar-specs glass-refraction">
+                    <div class="specs-list">
+                        
+                        <div class="spec-item">
+                            <span class="spec-label">زمان اجرا</span>
+                            <span class="spec-value" id="endTimeText">2 ساعت و 25 دقیقه • پایان در --:--</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">زبان</span>
+                            <span class="spec-value">انگلیسی (دوبله و زیرنویس)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">تاریخ انتشار</span>
+                            <span class="spec-value">29 ژوئیه 2026</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">بودجه</span>
+                            <span class="spec-value">225,000,000 دلار</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">درآمد گیشه</span>
+                            <span class="spec-value">1,320,000,000 دلار</span>
+                        </div>
+                        
+                        <div class="spec-item spec-item--clickable">
+                            <div class="spec-clickable-label">
+                                <i data-lucide="layout-grid"></i>
+                                <span>فرانچایز اصلی</span>
+                            </div>
+                            <div class="spec-clickable-val">
+                                <span class="spec-value spec-value--neon">دنیای سینمایی مارول (MCU)</span>
+                                <i data-lucide="chevron-left" class="spec-arrow"></i>
+                            </div>
+                        </div>
+
+                        <div class="spec-item spec-item--clickable">
+                            <div class="spec-clickable-label">
+                                <i data-lucide="film"></i>
+                                <span>مجموعه فیلم</span>
+                            </div>
+                            <div class="spec-clickable-val">
+                                <span class="spec-value spec-value--neon">فیلم‌های مرد عنکبوتی</span>
+                                <i data-lucide="chevron-left" class="spec-arrow"></i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="cinejoy-studio-logos">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Marvel_Logo.svg" alt="Marvel" class="studio-logo-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Columbia_Pictures_logo.svg" alt="Columbia" class="studio-logo-img">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 🧬 تب‌های سه‌گانه محتوا -->
+            <div class="cinejoy-tabs-container">
+                <div class="tab-buttons-row">
+                    <button class="tab-nav-btn active" data-target="downloadTabPane"><i data-lucide="download"></i><span>باکس‌های دانلود</span></button>
+                    <button class="tab-nav-btn" data-target="mediaTabPane"><i data-lucide="film"></i><span>بازیگران و تریلر</span></button>
+                    <button class="tab-nav-btn" data-target="commentsTabPane"><i data-lucide="message-square"></i><span>دیدگاه‌های کاربران (20)</span></button>
+                </div>
+
+                <!-- 📂 تب اول: باکس دانلود با تب‌بندی ریلی چندکیفیته -->
+                <div class="tab-pane-content" id="downloadTabPane">
+                    <div class="download-section" id="downloadSection">
+                        
+                        <div class="cinejoy-section-heading" style="margin-top: 10px;">
+                            <div class="heading-accent-bar"></div>
+                            <div class="heading-text-group">
+                                <h3 class="heading-title">لینک‌های دانلود مستقیم</h3>
+                                <p class="heading-subtitle">نسخه‌های باکیفیت به همراه صوت دوبله و زیرنویس اختصاصی</p>
+                            </div>
+                        </div>
+
+                        <div class="download-rails-container">
+
+                            <!-- بخش ۱: دوبله فارسی -->
+                            <div class="download-rail-item glass-refraction open" id="railDubbed">
+                                <button class="download-rail-header" type="button">
+                                    <div class="rail-header-right">
+                                        <div class="rail-icon-box rail-icon-box--dub">
+                                            <i data-lucide="headphones"></i>
+                                        </div>
+                                        <div class="rail-title-group">
+                                            <div class="rail-title">
+                                                <span>نسخه‌های دوبله فارسی دوزبانه</span>
+                                                <span class="dl-star-badge"><i data-lucide="sparkles"></i> کیفیت برتر</span>
+                                            </div>
+                                            <span class="rail-subtitle">شامل صوت دوبله حرفه‌ای موسسه + نسخه کامل بدون سانسور</span>
+                                        </div>
+                                    </div>
+                                    <div class="rail-header-left">
+                                        <i data-lucide="chevron-down" class="rail-chevron"></i>
+                                    </div>
+                                </button>
+
+                                <div class="download-rail-drawer">
+                                    <div class="download-rail-content">
+                                        
+                                        <div class="dl-quality-card">
+                                            <div class="dl-quality-top">
+                                                <div class="dl-quality-badges">
+                                                    <span class="dl-badge dl-badge--4k">4K Ultra HD</span>
+                                                    <span class="dl-meta-specs">2160p • x265 • 10Bit • HDR • انکودر PSA</span>
+                                                    <span class="dl-star-badge"><i data-lucide="star"></i> پیشنهاد ما</span>
+                                                </div>
+                                                <div class="dl-filesize"><i data-lucide="hard-drive"></i> 3.2 GB</div>
+                                            </div>
+                                            <div class="dl-actions-rail">
+                                                <div class="dl-servers-cluster">
+                                                    <a href="#" class="btn-server-dl btn-server-dl--primary"><i data-lucide="download"></i> دانلود مستقیم</a>
+                                                    <a href="#" class="btn-server-dl"><i data-lucide="server"></i> سرور کمکی</a>
+                                                    <a href="#" class="btn-server-dl btn-server-dl--audio"><i data-lucide="volume-2"></i> صوت جداگانه</a>
+                                                </div>
+                                                <button class="btn-broken-link" title="گزارش خرابی لینک"><i data-lucide="alert-triangle"></i> گزارش خرابی</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="dl-quality-card">
+                                            <div class="dl-quality-top">
+                                                <div class="dl-quality-badges">
+                                                    <span class="dl-badge dl-badge--1080">1080p Full HD</span>
+                                                    <span class="dl-meta-specs">1080p • x264 • WEB-DL • انکودر GalaxyRG</span>
+                                                </div>
+                                                <div class="dl-filesize"><i data-lucide="hard-drive"></i> 1.9 GB</div>
+                                            </div>
+                                            <div class="dl-actions-rail">
+                                                <div class="dl-servers-cluster">
+                                                    <a href="#" class="btn-server-dl btn-server-dl--primary"><i data-lucide="download"></i> دانلود مستقیم</a>
+                                                    <a href="#" class="btn-server-dl"><i data-lucide="server"></i> سرور کمکی</a>
+                                                    <a href="#" class="btn-server-dl btn-server-dl--audio"><i data-lucide="volume-2"></i> صوت جداگانه</a>
+                                                </div>
+                                                <button class="btn-broken-link" title="گزارش خرابی لینک"><i data-lucide="alert-triangle"></i> گزارش خرابی</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- بخش ۲: زیرنویس چسبیده SoftSub -->
+                            <div class="download-rail-item glass-refraction" id="railSubbed">
+                                <button class="download-rail-header" type="button">
+                                    <div class="rail-header-right">
+                                        <div class="rail-icon-box rail-icon-box--sub">
+                                            <i data-lucide="subtitles"></i>
+                                        </div>
+                                        <div class="rail-title-group">
+                                            <div class="rail-title">
+                                                <span>نسخه‌های زیرنویس چسبیده فارسی (SoftSub)</span>
+                                            </div>
+                                            <span class="rail-subtitle">زیرنویس هماهنگ و ترجمه اختصاصی با قابلیت فعال/غیرفعال‌سازی</span>
+                                        </div>
+                                    </div>
+                                    <div class="rail-header-left">
+                                        <i data-lucide="chevron-down" class="rail-chevron"></i>
+                                    </div>
+                                </button>
+
+                                <div class="download-rail-drawer">
+                                    <div class="download-rail-content">
+                                        
+                                        <div class="dl-quality-card">
+                                            <div class="dl-quality-top">
+                                                <div class="dl-quality-badges">
+                                                    <span class="dl-badge dl-badge--1080">1080p Full HD</span>
+                                                    <span class="dl-meta-specs">1080p • SoftSub • x264 • انکودر GalaxyRG</span>
+                                                    <span class="dl-star-badge"><i data-lucide="star"></i> پیشنهادی</span>
+                                                </div>
+                                                <div class="dl-filesize"><i data-lucide="hard-drive"></i> 2.1 GB</div>
+                                            </div>
+                                            <div class="dl-actions-rail">
+                                                <div class="dl-servers-cluster">
+                                                    <a href="#" class="btn-server-dl btn-server-dl--primary"><i data-lucide="download"></i> دانلود مستقیم</a>
+                                                    <a href="#" class="btn-server-dl"><i data-lucide="server"></i> سرور کمکی</a>
+                                                    <a href="#" class="btn-server-dl btn-server-dl--sub"><i data-lucide="file-text"></i> دانلود فایل SRT</a>
+                                                </div>
+                                                <button class="btn-broken-link" title="گزارش خرابی لینک"><i data-lucide="alert-triangle"></i> گزارش خرابی</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 📂 تب دوم: بازیگران و تریلرها (طراحی جدید IMDb و آواتارهای دایره‌ای با هوور شبکه‌های اجتماعی و دکمه دنبال کردن + زنگوله) -->
+                <div class="tab-pane-content hidden" id="mediaTabPane">
+                    
+                    <!-- 👥 اسلایدر پرتره‌های دایره‌ای بازیگران و عوامل -->
+                    <section class="cast-section" style="margin-top:10px;">
+                        <div class="cinejoy-section-heading">
+                            <div class="heading-accent-bar"></div>
+                            <div class="heading-text-group">
+                                <h3 class="heading-title">ستارگان و عوامل فیلم</h3>
+                                <p class="heading-subtitle">تیم بازیگری، کارگردانی و عوامل پشت صحنه (با قابلیت دنبال کردن و اعلان فیلم جدید)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="cast-slider-wrapper" id="castSliderWrapper">
+                            <div class="cast-slider-track">
+                                
+                                <!-- شخص ۱: تام هالند -->
+                                <div class="cast-card-circle glass-refraction">
+                                    <div class="cast-avatar-wrap">
+                                        <img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="تام هالند">
+                                        <!-- هوور شبکه‌های اجتماعی اینستاگرام و X -->
+                                        <div class="cast-social-overlay">
+                                            <a href="https://instagram.com" target="_blank" class="social-circle-btn" title="اینستاگرام"><i data-lucide="instagram"></i></a>
+                                            <a href="https://twitter.com" target="_blank" class="social-circle-btn" title="پلتفرم X"><i data-lucide="twitter"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="cast-name">تام هالند</div>
+                                    <div class="cast-character">پیتر پارکر / مرد عنکبوتی</div>
+                                    <div class="crew-follow-box">
+                                        <button class="btn-follow-crew" type="button"><i data-lucide="user-plus"></i><span>دنبال کردن</span></button>
+                                        <button class="btn-bell-crew" title="فعال‌سازی اعلان فیلم‌های جدید" type="button"><i data-lucide="bell"></i></button>
+                                    </div>
+                                </div>
+
+                                <!-- شخص ۲: دستین دانیال کرتون (کارگردان) -->
+                                <div class="cast-card-circle glass-refraction">
+                                    <div class="cast-avatar-wrap">
+                                        <img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="دستین دانیال کرتون">
+                                        <div class="cast-social-overlay">
+                                            <a href="https://instagram.com" target="_blank" class="social-circle-btn" title="اینستاگرام"><i data-lucide="instagram"></i></a>
+                                            <a href="https://twitter.com" target="_blank" class="social-circle-btn" title="پلتفرم X"><i data-lucide="twitter"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="cast-name">دستین دانیال کرتون</div>
+                                    <div class="cast-character">کارگردان اثر</div>
+                                    <div class="crew-follow-box">
+                                        <button class="btn-follow-crew" type="button"><i data-lucide="user-plus"></i><span>دنبال کردن</span></button>
+                                        <button class="btn-bell-crew" title="فعال‌سازی اعلان فیلم‌های جدید" type="button"><i data-lucide="bell"></i></button>
+                                    </div>
+                                </div>
+
+                                <!-- شخص ۳: سدی سینک -->
+                                <div class="cast-card-circle glass-refraction">
+                                    <div class="cast-avatar-wrap">
+                                        <img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="سدی سینک">
+                                        <div class="cast-social-overlay">
+                                            <a href="https://instagram.com" target="_blank" class="social-circle-btn" title="اینستاگرام"><i data-lucide="instagram"></i></a>
+                                            <a href="https://twitter.com" target="_blank" class="social-circle-btn" title="پلتفرم X"><i data-lucide="twitter"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="cast-name">سدی سینک</div>
+                                    <div class="cast-character">جین گری</div>
+                                    <div class="crew-follow-box">
+                                        <button class="btn-follow-crew" type="button"><i data-lucide="user-plus"></i><span>دنبال کردن</span></button>
+                                        <button class="btn-bell-crew" title="فعال‌سازی اعلان فیلم‌های جدید" type="button"><i data-lucide="bell"></i></button>
+                                    </div>
+                                </div>
+
+                                <!-- شخص ۴: زندایا -->
+                                <div class="cast-card-circle glass-refraction">
+                                    <div class="cast-avatar-wrap">
+                                        <img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="زندایا">
+                                        <div class="cast-social-overlay">
+                                            <a href="https://instagram.com" target="_blank" class="social-circle-btn" title="اینستاگرام"><i data-lucide="instagram"></i></a>
+                                            <a href="https://twitter.com" target="_blank" class="social-circle-btn" title="پلتفرم X"><i data-lucide="twitter"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="cast-name">زندایا</div>
+                                    <div class="cast-character">ام جی</div>
+                                    <div class="crew-follow-box">
+                                        <button class="btn-follow-crew" type="button"><i data-lucide="user-plus"></i><span>دنبال کردن</span></button>
+                                        <button class="btn-bell-crew" title="فعال‌سازی اعلان فیلم‌های جدید" type="button"><i data-lucide="bell"></i></button>
+                                    </div>
+                                </div>
+
+                                <!-- شخص ۵: جون برنتال -->
+                                <div class="cast-card-circle glass-refraction">
+                                    <div class="cast-avatar-wrap">
+                                        <img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="جون برنتال">
+                                        <div class="cast-social-overlay">
+                                            <a href="https://instagram.com" target="_blank" class="social-circle-btn" title="اینستاگرام"><i data-lucide="instagram"></i></a>
+                                            <a href="https://twitter.com" target="_blank" class="social-circle-btn" title="پلتفرم X"><i data-lucide="twitter"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="cast-name">جون برنتال</div>
+                                    <div class="cast-character">فرانک کسل / مجازاتگر</div>
+                                    <div class="crew-follow-box">
+                                        <button class="btn-follow-crew" type="button"><i data-lucide="user-plus"></i><span>دنبال کردن</span></button>
+                                        <button class="btn-bell-crew" title="فعال‌سازی اعلان فیلم‌های جدید" type="button"><i data-lucide="bell"></i></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 🎥 بخش ویدیوها و تریلرها دقیقاً مطابق ساختار و سلسله‌مراتب IMDb -->
+                    <section class="imdb-media-section">
+                        <div class="imdb-section-header">
+                            <div class="imdb-header-title">
+                                <span class="imdb-accent-bar"></span>
+                                <h3>ویدیوها</h3>
+                                <span class="imdb-counter-badge">34</span>
+                                <i data-lucide="chevron-left" class="imdb-header-arrow"></i>
+                            </div>
+                        </div>
+
+                        <!-- ردیف بالای ویدیوها: ۲ ویدیوی شاخص بزرگ -->
+                        <div class="imdb-video-grid-featured">
+                            
+                            <div class="imdb-video-card" data-video="https://www.w3schools.com/html/mov_bbb.mp4" data-title="Spider-Man: The Beginning of the End - Official Clip">
+                                <div class="imdb-thumb-wrap">
+                                    <img src="https://image.tmdb.org/t/p/original/kkcwhgSFd81QDlXo8ytrpHPQjhy.jpg" alt="Video 1">
+                                    <div class="imdb-duration-badge">
+                                        <i data-lucide="play-circle"></i>
+                                        <span>Clip 4:58</span>
+                                    </div>
+                                </div>
+                                <div class="imdb-video-info">
+                                    <h4 class="imdb-video-title">Spider-Man: The Beginning of the End - Clip</h4>
+                                    <div class="imdb-reactions-row">
+                                        <span><i data-lucide="thumbs-up"></i> 4</span>
+                                        <span><i data-lucide="heart"></i> 6</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="imdb-video-card" data-video="https://www.w3schools.com/html/movie.mp4" data-title="Spider-Man: Lukas and Kennedy Go Out - Clip">
+                                <div class="imdb-thumb-wrap">
+                                    <img src="https://intocdn.top/wp-content/uploads/2026/06/h37hqVLmCW00ImewLAHT1DadOky.jpg" alt="Video 2">
+                                    <div class="imdb-duration-badge">
+                                        <i data-lucide="play-circle"></i>
+                                        <span>Clip 5:13</span>
+                                    </div>
+                                </div>
+                                <div class="imdb-video-info">
+                                    <h4 class="imdb-video-title">Spider-Man: Lukas and Kennedy Go Out - Clip</h4>
+                                    <div class="imdb-reactions-row">
+                                        <span><i data-lucide="thumbs-up"></i> 3</span>
+                                        <span><i data-lucide="heart"></i> 1</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- ردیف پایین ویدیوها: ۴ ویدیوی مینیاتوری -->
+                        <div class="imdb-video-grid-sub">
+                            
+                            <div class="imdb-video-card" data-video="https://www.w3schools.com/html/mov_bbb.mp4" data-title="Spider-Man: Daniel and Helen Finally Get Answers">
+                                <div class="imdb-thumb-wrap">
+                                    <img src="https://intocdn.top/wp-content/uploads/2024/11/bJtOEfr3jZMYLDNAoinXzvVAhre.jpg" alt="Video 3">
+                                    <div class="imdb-duration-badge"><i data-lucide="play-circle"></i> <span>Clip 2:48</span></div>
+                                </div>
+                                <div class="imdb-video-info">
+                                    <h5 class="imdb-video-title">Daniel and Helen Answers - Clip</h5>
+                                    <div class="imdb-reactions-row"><span><i data-lucide="thumbs-up"></i> 2</span> <span><i data-lucide="heart"></i> 2</span></div>
+                                </div>
+                            </div>
+
+                            <div class="imdb-video-card" data-video="https://www.w3schools.com/html/movie.mp4" data-title="The Spider-Man Cast Promises Twists and Turns">
+                                <div class="imdb-thumb-wrap">
+                                    <img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="Video 4">
+                                    <div class="imdb-duration-badge"><i data-lucide="play-circle"></i> <span>Clip 3:00</span></div>
+                                </div>
+                                <div class="imdb-video-info">
+                                    <h5 class="imdb-video-title">Cast Promises Twists and Turns</h5>
+                                    <div class="imdb-reactions-row"><span><i data-lucide="thumbs-up"></i> 10</span> <span><i data-lucide="heart"></i> 3</span></div>
+                                </div>
+                            </div>
+
+                            <div class="imdb-video-card" data-video="https://www.w3schools.com/html/mov_bbb.mp4" data-title="Charlotte's Mission in New York - Clip">
+                                <div class="imdb-thumb-wrap">
+                                    <img src="https://image.tmdb.org/t/p/original/kkcwhgSFd81QDlXo8ytrpHPQjhy.jpg" alt="Video 5">
+                                    <div class="imdb-duration-badge"><i data-lucide="play-circle"></i> <span>Clip 2:25</span></div>
+                                </div>
+                                <div class="imdb-video-info">
+                                    <h5 class="imdb-video-title">Charlotte's Mission - Clip</h5>
+                                    <div class="imdb-reactions-row"><span><i data-lucide="thumbs-up"></i> 6</span> <span><i data-lucide="heart"></i> 1</span></div>
+                                </div>
+                            </div>
+
+                            <div class="imdb-video-card" data-video="https://www.w3schools.com/html/movie.mp4" data-title="It Never Really Mattered - Teaser">
+                                <div class="imdb-thumb-wrap">
+                                    <img src="https://intocdn.top/wp-content/uploads/2026/06/h37hqVLmCW00ImewLAHT1DadOky.jpg" alt="Video 6">
+                                    <div class="imdb-duration-badge"><i data-lucide="play-circle"></i> <span>Clip 0:29</span></div>
+                                </div>
+                                <div class="imdb-video-info">
+                                    <h5 class="imdb-video-title">It Never Really Mattered</h5>
+                                    <div class="imdb-reactions-row"><span><i data-lucide="thumbs-up"></i> 74</span> <span><i data-lucide="heart"></i> 39</span></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <!-- 🖼️ بخش تصاویر دقیقاً مطابق ساختار و سلسله‌مراتب رفرنس IMDb -->
+                    <section class="imdb-media-section">
+                        <div class="imdb-section-header">
+                            <div class="imdb-header-title">
+                                <span class="imdb-accent-bar"></span>
+                                <h3>تصاویر</h3>
+                                <span class="imdb-counter-badge">272</span>
+                                <i data-lucide="chevron-left" class="imdb-header-arrow"></i>
+                            </div>
+                            <button class="btn-imdb-add-photo" type="button"><i data-lucide="plus"></i> <span>افزودن تصویر</span></button>
+                        </div>
+
+                        <!-- ۲ عکس عریض شاخص بالا -->
+                        <div class="imdb-photos-grid-featured">
+                            <div class="imdb-photo-card"><img src="https://image.tmdb.org/t/p/original/kkcwhgSFd81QDlXo8ytrpHPQjhy.jpg" alt="Photo 1"></div>
+                            <div class="imdb-photo-card"><img src="https://intocdn.top/wp-content/uploads/2026/06/h37hqVLmCW00ImewLAHT1DadOky.jpg" alt="Photo 2"></div>
+                        </div>
+
+                        <!-- ۴ عکس پایین همراه با شمارنده +267 روی عکس آخر -->
+                        <div class="imdb-photos-grid-sub">
+                            <div class="imdb-photo-card"><img src="https://intocdn.top/wp-content/uploads/2024/11/bJtOEfr3jZMYLDNAoinXzvVAhre.jpg" alt="Photo 3"></div>
+                            <div class="imdb-photo-card"><img src="https://image.tmdb.org/t/p/original/vc8bCGjdVBDXg9SpzHvaTevgNmG.jpg" alt="Photo 4"></div>
+                            <div class="imdb-photo-card"><img src="https://image.tmdb.org/t/p/original/5myQbDzw3l8K9yofUXRJ4UTVgam.jpg" alt="Photo 5"></div>
+                            
+                            <!-- عکس چهارم با اورلی +267 مطابق رفرنس -->
+                            <div class="imdb-photo-card has-more-overlay">
+                                <img src="https://image.tmdb.org/t/p/original/14QbnygCuTO0vl7CAFmPf1fgZfV.jpg" alt="Photo 6">
+                                <div class="imdb-more-photos-overlay">
+                                    <span>+ 267</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+                <!-- 📂 تب سوم: دیدگاه‌های کاربران -->
+                <div class="tab-pane-content hidden" id="commentsTabPane">
+                    <section class="comments-section glass-refraction" style="margin-top:10px;">
+                        <div class="cinejoy-section-heading">
+                            <div class="heading-accent-bar"></div>
+                            <div class="heading-text-group">
+                                <h3 class="heading-title">دیدگاه‌ها و نظرات کاربران (20 نظر)</h3>
+                                <p class="heading-subtitle">نظرتان را درباره این فیلم با دیگران به اشتراک بگذارید</p>
+                            </div>
+                        </div>
+                        
+                        <div class="comment-input-area" id="mainCommentForm">
+                            <div class="comment-form-grid">
+                                <div class="comment-form-input-wrapper">
+                                    <i data-lucide="user"></i>
+                                    <input type="text" id="commentAuthor" class="comment-input-field" placeholder="نام نمایشی شما...">
+                                </div>
+                                <div class="comment-form-input-wrapper">
+                                    <i data-lucide="mail"></i>
+                                    <input type="email" id="commentEmail" class="comment-input-field" placeholder="آدرس ایمیل (نمایان نخواهد شد)...">
+                                </div>
+                            </div>
+                            <textarea class="comment-textarea" id="commentText" placeholder="دیدگاه خود را درباره این فیلم بنویسید..."></textarea>
+                            
+                            <div class="comment-action-bar">
+                                <label class="comment-spoiler-toggle">
+                                    <input type="checkbox" id="commentIsSpoiler">
+                                    <span class="custom-checkbox"></span>
+                                    <span class="checkbox-label"><i data-lucide="alert-triangle" style="width:14px; vertical-align:middle; margin-left:3px;"></i> حاوی اسپویل داستان</span>
+                                </label>
+                                <button class="btn-submit-comment" id="btnSubmitComment">
+                                    <i data-lucide="pen-tool" style="width:14px; margin-left:6px; vertical-align:middle;"></i>
+                                    <span>ارسال دیدگاه</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- لیست صفحات کامنت -->
+                        <div class="comments-list" id="commentsListContainer">
+                            
+                            <!-- 📄 صفحه اول دیدگاه‌ها (۱۰ نظر اول) -->
+                            <div class="comments-page active" id="commentsPage1">
+
+                                <!-- ۱. نظر عادی + پاسخ به کاربر -->
+                                <div class="comment-card-wrapper" data-id="comment-1">
+                                    <div class="comment-item">
+                                        <div class="comment-side-likes">
+                                            <button class="btn-comment-like" data-count="12" title="می‌پسندم"><i data-lucide="thumbs-up"></i><span class="like-count">12</span></button>
+                                            <button class="btn-comment-dislike" data-count="3" title="نمی‌پسندم"><i data-lucide="thumbs-down"></i><span class="dislike-count">3</span></button>
+                                        </div>
+                                        <div class="comment-avatar"><img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="سینا ای تی"></div>
+                                        <div class="comment-content">
+                                            <div class="comment-user">سینا ای تی <span class="comment-date">2 روز پیش</span></div>
+                                            <p class="comment-text">واقعاً جلوه‌های ویژه‌اش فوق‌العاده‌ست! موسیقی متنش هم که حرف نداره، حتماً دانلود کنید.</p>
+                                            <div class="comment-actions">
+                                                <button class="btn-comment-reply" data-id="comment-1" data-author="سینا ای تی"><i data-lucide="reply-all"></i> پاسخ به این نظر</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- ریپلای به همراه فلش و تگ نام کاربر -->
+                                    <div class="nested-replies-container">
+                                        <div class="comment-item comment-item--reply">
+                                            <div class="comment-avatar"><img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="امیرحسین"></div>
+                                            <div class="comment-content">
+                                                <div class="comment-user">
+                                                    <span>امیرحسین</span>
+                                                    <span class="reply-target-tag"><i data-lucide="corner-down-left"></i> در پاسخ به @سینا ای تی</span>
+                                                    <span class="comment-date">1 روز پیش</span>
+                                                </div>
+                                                <p class="comment-text">دقیقاً موافقم! توی نسخه ۴K کیفیت صداگذاری دالبی اتموسش بی‌نظیر بود.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ۲. نظر حاوی اسپویلر -->
+                                <div class="comment-card-wrapper" data-id="comment-2">
+                                    <div class="comment-item">
+                                        <div class="comment-side-likes">
+                                            <button class="btn-comment-like" data-count="40" title="می‌پسندم"><i data-lucide="thumbs-up"></i><span class="like-count">40</span></button>
+                                            <button class="btn-comment-dislike" data-count="1" title="نمی‌پسندم"><i data-lucide="thumbs-down"></i><span class="dislike-count">1</span></button>
+                                        </div>
+                                        <div class="comment-avatar"><img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="مهراد سینمایی"></div>
+                                        <div class="comment-content">
+                                            <div class="comment-user">مهراد سینمایی <span class="comment-date">دیروز</span></div>
+                                            <div class="comment-spoiler-wrapper">
+                                                <div class="comment-spoiler-warning"><i data-lucide="alert-triangle" style="width:14px; margin-left:4px;"></i> حاوی اسپویل داستان (برای مشاهده کلیک کنید)</div>
+                                                <p class="comment-text is-spoiler">آخر فیلم واقعاً غیرمنتظره بود! باورم نمی‌شد که هری آزبورن دوباره با لباس گرین گابلین ظاهر بشه و با پیتر بجنگه!</p>
+                                            </div>
+                                            <div class="comment-actions">
+                                                <button class="btn-comment-reply" data-id="comment-2" data-author="مهراد سینمایی"><i data-lucide="reply-all"></i> پاسخ به این نظر</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="nested-replies-container">
+                                        <div class="comment-item comment-item--reply">
+                                            <div class="comment-avatar"><img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="رضا مارول"></div>
+                                            <div class="comment-content">
+                                                <div class="comment-user">
+                                                    <span>رضا مارول</span>
+                                                    <span class="reply-target-tag"><i data-lucide="corner-down-left"></i> در پاسخ به @مهراد سینمایی</span>
+                                                    <span class="comment-date">دیروز</span>
+                                                </div>
+                                                <p class="comment-text">ولی از نظر خط داستانی کمیک‌ها کاملاً زمینه سازی شده بود.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ۳. نظر عادی -->
+                                <div class="comment-card-wrapper" data-id="comment-3">
+                                    <div class="comment-item">
+                                        <div class="comment-side-likes">
+                                            <button class="btn-comment-like" data-count="18" title="می‌پسندم"><i data-lucide="thumbs-up"></i><span class="like-count">18</span></button>
+                                            <button class="btn-comment-dislike" data-count="0" title="نمی‌پسندم"><i data-lucide="thumbs-down"></i><span class="dislike-count">0</span></button>
+                                        </div>
+                                        <div class="comment-avatar"><img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="arkan1396"></div>
+                                        <div class="comment-content">
+                                            <div class="comment-user">arkan1396 <span class="comment-date">2 روز پیش</span></div>
+                                            <p class="comment-text">مرد عنکبوتی تام هالند توی این اثر خیلی پخته‌تر و جدی‌تر از نسخه‌های قبلی شده بود.</p>
+                                            <div class="comment-actions">
+                                                <button class="btn-comment-reply" data-id="comment-3" data-author="arkan1396"><i data-lucide="reply-all"></i> پاسخ به این نظر</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="nested-replies-container"></div>
+                                </div>
+
+                                <!-- ۴. نظر عادی + پاسخ -->
+                                <div class="comment-card-wrapper" data-id="comment-4">
+                                    <div class="comment-item">
+                                        <div class="comment-side-likes">
+                                            <button class="btn-comment-like" data-count="5" title="می‌پسندم"><i data-lucide="thumbs-up"></i><span class="like-count">5</span></button>
+                                            <button class="btn-comment-dislike" data-count="0" title="نمی‌پسندم"><i data-lucide="thumbs-down"></i><span class="dislike-count">0</span></button>
+                                        </div>
+                                        <div class="comment-avatar"><img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="Mamad_Morgani"></div>
+                                        <div class="comment-content">
+                                            <div class="comment-user">Mamad_Morgani <span class="comment-date">3 روز پیش</span></div>
+                                            <p class="comment-text">کیفیت صدای نسخه دوبله دوزبانه چطوره؟ دوستان پیشنهاد می‌کنید؟</p>
+                                            <div class="comment-actions">
+                                                <button class="btn-comment-reply" data-id="comment-4" data-author="Mamad_Morgani"><i data-lucide="reply-all"></i> پاسخ به این نظر</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="nested-replies-container">
+                                        <div class="comment-item comment-item--reply">
+                                            <div class="comment-avatar"><img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="پشتیبانی"></div>
+                                            <div class="comment-content">
+                                                <div class="comment-user">
+                                                    <span>پشتیبانی زون‌مووی</span>
+                                                    <span class="reply-target-tag"><i data-lucide="corner-down-left"></i> در پاسخ به @Mamad_Morgani</span>
+                                                    <span class="comment-date">2 روز پیش</span>
+                                                </div>
+                                                <p class="comment-text">صوت دوبله با بالاترین کیفیت موسسه و هماهنگی کامل قرار داده شده است.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ۵. نظر عادی -->
+                                <div class="comment-card-wrapper" data-id="comment-5">
+                                    <div class="comment-item">
+                                        <div class="comment-side-likes">
+                                            <button class="btn-comment-like" data-count="9" title="می‌پسندم"><i data-lucide="thumbs-up"></i><span class="like-count">9</span></button>
+                                            <button class="btn-comment-dislike" data-count="2" title="نمی‌پسندم"><i data-lucide="thumbs-down"></i><span class="dislike-count">2</span></button>
+                                        </div>
+                                        <div class="comment-avatar"><img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="Babapor1388"></div>
+                                        <div class="comment-content">
+                                            <div class="comment-user">Babapor1388 <span class="comment-date">3 روز پیش</span></div>
+                                            <p class="comment-text">فقط می‌خوام بدونم این اثر شروع یک سه‌گانه کاملاً جدیده یا ادامه‌دار خواهد بود؟</p>
+                                            <div class="comment-actions">
+                                                <button class="btn-comment-reply" data-id="comment-5" data-author="Babapor1388"><i data-lucide="reply-all"></i> پاسخ به این نظر</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="nested-replies-container"></div>
+                                </div>
+
+                                <!-- ۶. نظر حاوی اسپویلر -->
+                                <div class="comment-card-wrapper" data-id="comment-6">
+                                    <div class="comment-item">
+                                        <div class="comment-side-likes">
+                                            <button class="btn-comment-like" data-count="31" title="می‌پسندم"><i data-lucide="thumbs-up"></i><span class="like-count">31</span></button>
+                                            <button class="btn-comment-dislike" data-count="4" title="نمی‌پسندم"><i data-lucide="thumbs-down"></i><span class="dislike-count">4</span></button>
+                                        </div>
+                                        <div class="comment-avatar"><img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="seyed.ali.devar"></div>
+                                        <div class="comment-content">
+                                            <div class="comment-user">seyed.ali.devar <span class="comment-date">4 روز پیش</span></div>
+                                            <div class="comment-spoiler-wrapper">
+                                                <div class="comment-spoiler-warning"><i data-lucide="alert-triangle" style="width:14px; margin-left:4px;"></i> حاوی اسپویل داستان (برای مشاهده کلیک کنید)</div>
+                                                <p class="comment-text is-spoiler">سکانس نبرد هوایی پیتر روی پل و نحوه نجات دادن مردم اوج هیجان کارگردانی بود!</p>
+                                            </div>
+                                            <div class="comment-actions">
+                                                <button class="btn-comment-reply" data-id="comment-6" data-author="seyed.ali.devar"><i data-lucide="reply-all"></i> پاسخ به این نظر</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="nested-replies-container"></div>
+                                </div>
+
+                                <!-- ۷. نظر عادی -->
+                                <div class="comment-card-wrapper" data-id="comment-7">
+                                    <div class="comment-item">
+                                        <div class="comment-side-likes">
+                                            <button class="btn-comment-like" data-count="14" title="می‌پسندم"><i data-lucide="thumbs-up"></i><span class="like-count">14</span></button>
+                                            <button class="btn-comment-dislike" data-count="0" title="نمی‌پسندم"><i data-lucide="thumbs-down"></i><span class="dislike-count">0</span></button>
+                                        </div>
+                                        <div class="comment-avatar"><img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="Shahab238"></div>
+                                        <div class="comment-content">
+                                            <div class="comment-user">Shahab238 <span class="comment-date">4 روز پیش</span></div>
+                                            <p class="comment-text">سرعت بارگذاری سایت و روانی منوها واقعاً چشمگیره، خسته نباشید به تیم توسعه.</p>
+                                            <div class="comment-actions">
+                                                <button class="btn-comment-reply" data-id="comment-7" data-author="Shahab238"><i data-lucide="reply-all"></i> پاسخ به این نظر</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="nested-replies-container"></div>
+                                </div>
+
+                            </div>
+
+                            <!-- 📄 صفحه دوم دیدگاه‌ها (۱۰ نظر دوم) -->
+                            <div class="comments-page hidden" id="commentsPage2">
+
+                                <!-- ۸. نظر عادی -->
+                                <div class="comment-card-wrapper" data-id="comment-8">
+                                    <div class="comment-item">
+                                        <div class="comment-side-likes">
+                                            <button class="btn-comment-like" data-count="22" title="می‌پسندم"><i data-lucide="thumbs-up"></i><span class="like-count">22</span></button>
+                                            <button class="btn-comment-dislike" data-count="1" title="نمی‌پسندم"><i data-lucide="thumbs-down"></i><span class="dislike-count">1</span></button>
+                                        </div>
+                                        <div class="comment-avatar"><img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="dldiamond"></div>
+                                        <div class="comment-content">
+                                            <div class="comment-user">dldiamond <span class="comment-date">5 روز پیش</span></div>
+                                            <p class="comment-text">لینک‌های دانلود ۴K با حداکثر پهنای باند دانلود شدن، واقعاً فوق‌العاده‌ست.</p>
+                                            <div class="comment-actions">
+                                                <button class="btn-comment-reply" data-id="comment-8" data-author="dldiamond"><i data-lucide="reply-all"></i> پاسخ به این نظر</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="nested-replies-container"></div>
+                                </div>
+
+                                <!-- ۹. نظر حاوی اسپویلر + پاسخ -->
+                                <div class="comment-card-wrapper" data-id="comment-9">
+                                    <div class="comment-item">
+                                        <div class="comment-side-likes">
+                                            <button class="btn-comment-like" data-count="45" title="می‌پسندم"><i data-lucide="thumbs-up"></i><span class="like-count">45</span></button>
+                                            <button class="btn-comment-dislike" data-count="2" title="نمی‌پسندم"><i data-lucide="thumbs-down"></i><span class="dislike-count">2</span></button>
+                                        </div>
+                                        <div class="comment-avatar"><img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="Sarah_K"></div>
+                                        <div class="comment-content">
+                                            <div class="comment-user">Sarah_K <span class="comment-date">5 روز پیش</span></div>
+                                            <div class="comment-spoiler-wrapper">
+                                                <div class="comment-spoiler-warning"><i data-lucide="alert-triangle" style="width:14px; margin-left:4px;"></i> حاوی اسپویل داستان (برای مشاهده کلیک کنید)</div>
+                                                <p class="comment-text is-spoiler">صحنه پس از تیتراژ (Post-Credit) رسماً ورود جهش‌یافته‌ها و افراد ایکس به مارول رو تایید کرد!</p>
+                                            </div>
+                                            <div class="comment-actions">
+                                                <button class="btn-comment-reply" data-id="comment-9" data-author="Sarah_K"><i data-lucide="reply-all"></i> پاسخ به این نظر</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="nested-replies-container">
+                                        <div class="comment-item comment-item--reply">
+                                            <div class="comment-avatar"><img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="Arash_Spidey"></div>
+                                            <div class="comment-content">
+                                                <div class="comment-user">
+                                                    <span>Arash_Spidey</span>
+                                                    <span class="reply-target-tag"><i data-lucide="corner-down-left"></i> در پاسخ به @Sarah_K</span>
+                                                    <span class="comment-date">4 روز پیش</span>
+                                                </div>
+                                                <p class="comment-text">وای دقیقاً! سالن سینما موقع اون سکانس منفجر شد از هیجان.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ۱۰. نظر عادی -->
+                                <div class="comment-card-wrapper" data-id="comment-10">
+                                    <div class="comment-item">
+                                        <div class="comment-side-likes">
+                                            <button class="btn-comment-like" data-count="8" title="می‌پسندم"><i data-lucide="thumbs-up"></i><span class="like-count">8</span></button>
+                                            <button class="btn-comment-dislike" data-count="1" title="نمی‌پسندم"><i data-lucide="thumbs-down"></i><span class="dislike-count">1</span></button>
+                                        </div>
+                                        <div class="comment-avatar"><img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="CinemaLover"></div>
+                                        <div class="comment-content">
+                                            <div class="comment-user">CinemaLover <span class="comment-date">6 روز پیش</span></div>
+                                            <p class="comment-text">کارگردانی دستین دانیال کرتون مثل شانگ‌چی پر از ریتم تند و مبارزات تن‌به‌تن حرفه‌ای بود.</p>
+                                            <div class="comment-actions">
+                                                <button class="btn-comment-reply" data-id="comment-10" data-author="CinemaLover"><i data-lucide="reply-all"></i> پاسخ به این نظر</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="nested-replies-container"></div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- 📊 سیستم شماره صفحه (Pagination) بنفش نئونی برند زون‌مووی -->
+                        <div class="comment-pagination">
+                            <button class="pag-btn pag-btn--prev" id="pagPrevBtn" type="button"><i data-lucide="chevron-right"></i></button>
+                            <button class="pag-btn pag-btn--num active" data-page="1" type="button">1</button>
+                            <button class="pag-btn pag-btn--num" data-page="2" type="button">2</button>
+                            <button class="pag-btn pag-btn--next" id="pagNextBtn" type="button"><i data-lucide="chevron-left"></i></button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- 🔗 اسلایدر ادغام‌شده: آثار مشابه و پیشنهادی به همراه کل مجموعه فیلم‌ها -->
+            <section class="movie-section" id="franchiseSection" style="margin-top:40px;">
+                <div class="section-header">
+                    <div class="cinejoy-section-heading" style="margin-bottom:0;">
+                        <div class="heading-accent-bar"></div>
+                        <div class="heading-text-group">
+                            <h3 class="heading-title">مجموعه فیلم‌ها و آثار مرتبط</h3>
+                            <p class="heading-subtitle">عناوین مرتبط با دنیای سینمایی مرد عنکبوتی (با هاور هاله پس‌زمینه زنده)</p>
+                        </div>
+                    </div>
+                    <div class="section-nav">
+                        <button class="section-arrow arrow-prev" id="franchisePrev"><i data-lucide="chevron-right"></i></button>
+                        <button class="section-arrow arrow-next" id="franchiseNext"><i data-lucide="chevron-left"></i></button>
+                    </div>
+                </div>
+
+                <div class="movie-slider-wrapper" id="franchiseSliderWrapper">
+                    <div class="movie-slider-track">
+
+                        <!-- کارت ۱: بازگشت به خانه ۲۰۱۷ -->
+                        <div class="movie-card-container">
+                            <div class="movie-3d-card glass-refraction" data-bg="https://image.tmdb.org/t/p/original/vc8bCGjdVBDXg9SpzHvaTevgNmG.jpg">
+                                <div class="floating-imdb"><i data-lucide="star" style="fill:#000; width:13px; height:13px;"></i><span>8.1</span></div>
+                                <div class="floating-studio-png" title="Marvel Studios"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Marvel_Logo.svg" alt="Marvel"></div>
+                                <div class="floating-dubbing-tag"><i data-lucide="headphones"></i><span>دوبله فارسی</span></div>
+
+                                <div class="poster-wrapper">
+                                    <img src="https://image.tmdb.org/t/p/w500/c24sv2weG6ScN0ap6xSRTGda4TV.jpg" alt="Homecoming">
+                                    <div class="poster-overlay"></div>
+                                </div>
+
+                                <div class="card-details-drawer">
+                                    <div class="drawer-header">
+                                        <img class="movie-title-png-card" src="https://image.tmdb.org/t/p/w500/vbZcDHC5IFylYuRnp3eyOs5rTV1.png" alt="Spider-Man Logo">
+                                        <span class="card-tag quality">4K 2160p</span>
+                                    </div>
+                                    <div class="drawer-summary">پیتر پارکر پس از حضور در جنگ داخلی، با کمک مربی‌اش تونی استارک تلاش می‌کند زندگی قهرمانی را مدیریت کند...</div>
+                                    <div class="drawer-details-grid">
+                                        <div class="drawer-item"><i data-lucide="star"></i> <span>8.1 / 10</span></div>
+                                        <div class="drawer-item"><i data-lucide="calendar"></i> <span>2017</span></div>
+                                        <div class="drawer-item"><i data-lucide="film"></i> <span>اکشن، ماجراجویی</span></div>
+                                        <div class="drawer-item"><i data-lucide="clock"></i> <span>133 دقیقه</span></div>
+                                        <div class="drawer-item full-width"><i data-lucide="clapperboard"></i> <span>مارول استودیوز • سونی</span></div>
+                                        <div class="drawer-item full-width"><i data-lucide="users"></i> <span>تام هالند، مایکل کیتون</span></div>
+                                    </div>
+                                </div>
+
+                                <div class="card-bottom-info">
+                                    <div class="card-meta-tags">
+                                        <span class="card-tag dubbing"><i data-lucide="headphones" style="width:11px; height:11px;"></i>دوبله</span>
+                                        <span class="card-tag">2017</span>
+                                        <span class="card-tag">اکشن / تخیلی</span>
+                                        <span class="card-tag quality">PG-13</span>
+                                    </div>
+                                    <div class="card-actions-row">
+                                        <a href="./movie-single.html" class="card-btn-main"><i data-lucide="download" style="width:13px; height:13px;"></i>دانلود اثر</a>
+                                        <button class="card-btn-icon" title="نشان کردن"><i data-lucide="bookmark" style="width:15px; height:15px;"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- کارت ۲: دور از خانه ۲۰۱۹ -->
+                        <div class="movie-card-container">
+                            <div class="movie-3d-card glass-refraction" data-bg="https://image.tmdb.org/t/p/original/5myQbDzw3l8K9yofUXRJ4UTVgam.jpg">
+                                <div class="floating-imdb"><i data-lucide="star" style="fill:#000; width:13px; height:13px;"></i><span>7.8</span></div>
+                                <div class="floating-studio-png" title="Marvel Studios"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Marvel_Logo.svg" alt="Marvel"></div>
+                                <div class="floating-dubbing-tag"><i data-lucide="headphones"></i><span>دوبله فارسی</span></div>
+
+                                <div class="poster-wrapper">
+                                    <img src="https://image.tmdb.org/t/p/w500/4q2hz2m8hubgvij98EzWyKAxw8e.jpg" alt="Far From Home">
+                                    <div class="poster-overlay"></div>
+                                </div>
+
+                                <div class="card-details-drawer">
+                                    <div class="drawer-header">
+                                        <img class="movie-title-png-card" src="https://image.tmdb.org/t/p/w500/vbZcDHC5IFylYuRnp3eyOs5rTV1.png" alt="Spider-Man Logo">
+                                        <span class="card-tag quality">1080p Bluray</span>
+                                    </div>
+                                    <div class="drawer-summary">پیتر پارکر در اردوی مدرسه به اروپا سفر می‌کند اما با ورود میستریو و تهدید موجودات عنصری روبرو می‌شود...</div>
+                                    <div class="drawer-details-grid">
+                                        <div class="drawer-item"><i data-lucide="star"></i> <span>7.8 / 10</span></div>
+                                        <div class="drawer-item"><i data-lucide="calendar"></i> <span>2019</span></div>
+                                        <div class="drawer-item"><i data-lucide="film"></i> <span>ماجراجویی، علمی‌تخیلی</span></div>
+                                        <div class="drawer-item"><i data-lucide="clock"></i> <span>129 دقیقه</span></div>
+                                        <div class="drawer-item full-width"><i data-lucide="clapperboard"></i> <span>مارول استودیوز</span></div>
+                                        <div class="drawer-item full-width"><i data-lucide="users"></i> <span>تام هالند، جیک جیلنهال</span></div>
+                                    </div>
+                                </div>
+
+                                <div class="card-bottom-info">
+                                    <div class="card-meta-tags">
+                                        <span class="card-tag dubbing"><i data-lucide="headphones" style="width:11px; height:11px;"></i>دوبله</span>
+                                        <span class="card-tag">2019</span>
+                                        <span class="card-tag">اکشن / کمدی</span>
+                                        <span class="card-tag quality">PG-13</span>
+                                    </div>
+                                    <div class="card-actions-row">
+                                        <a href="./movie-single.html" class="card-btn-main"><i data-lucide="download" style="width:13px; height:13px;"></i>دانلود اثر</a>
+                                        <button class="card-btn-icon" title="نشان کردن"><i data-lucide="bookmark" style="width:15px; height:15px;"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- ═══════════════════════════════════════
+         COMPONENT: RATING CONFIRMATION MODAL
+    ═══════════════════════════════════════ -->
+    <div class="rating-modal hidden" id="ratingConfirmModal" aria-hidden="true">
+        <div class="rating-modal__card glass-refraction">
+            <div class="rating-modal__header">
+                <i data-lucide="help-circle" style="color: #f59e0b;"></i>
+                <span>تایید نهایی امتیاز</span>
+            </div>
+            <div class="rating-modal__body">
+                آیا از ثبت امتیاز <span class="rating-modal__score-preview" id="previewScoreSpan">10 از 10</span> برای این اثر اطمینان دارید؟ 
+                <br><br>
+                <small style="color: var(--text-muted);">نکته: شما حداکثر ۳ بار فرصت ویرایش امتیاز خود را خواهید داشت و امتیاز پس از تایید در صف به‌روزرسانی میانگین قرار می‌گیرد.</small>
+            </div>
+            <div class="rating-modal__actions">
+                <button class="btn-rating-cancel" id="btnRatingConfirmCancel" type="button">خیر، تغییر نمره</button>
+                <button class="btn-rating-confirm" id="btnRatingConfirmYes" type="button">بله، ثبت نهایی</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         COMPONENT: TRAILER VIDEO MODAL
+    ═══════════════════════════════════════ -->
+    <div class="trailer-modal hidden" id="trailerModal" aria-hidden="true">
+        <div class="trailer-modal__card glass-refraction">
+            <div class="trailer-modal__header">
+                <span class="trailer-modal__title" id="modalTrailerTitle"><i data-lucide="play-circle"></i> تریلر رسمی مرد عنکبوتی</span>
+                <button class="trailer-modal__close" id="btnCloseTrailer" aria-label="بستن تریلر"><i data-lucide="x"></i></button>
+            </div>
+            <div class="trailer-modal__body">
+                <video id="trailerVideo" controls poster="https://intocdn.top/wp-content/uploads/2026/06/h37hqVLmCW00ImewLAHT1DadOky.jpg" style="width: 100%; height: auto; border-radius: 12px; display: block;">
+                    <source src="" type="video/mp4" id="videoSource">
+                    مرورگر شما از پخش مستقیم ویدیو پشتیبانی نمی‌کند.
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         COMPONENT: FOOTER
+    ═══════════════════════════════════════ -->
+    <footer class="footer">
+        <div class="footer__inner glass-refraction">
+            <div class="footer__bottom" style="border:none; padding:0;">
+                <div>© 2026 - تمامی حقوق مادی و معنوی برای پلتفرم <span style="color:var(--primary); font-weight:700;">zonemovi</span> محفوظ است.</div>
+                <div class="footer__copyright">ساخته شده با <i data-lucide="heart" style="fill: var(--accent); color:var(--accent);"></i> برای عاشقان سینما</div>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTopBtn" aria-label="بازگشت به بالای صفحه">
+        <i data-lucide="arrow-up"></i>
+    </button>
+
+    <div class="filter-modal hidden" id="filterModal" aria-hidden="true"></div>
+
+    <script type="module" src="/src/components/movie-single/movie-single.js"></script>
+</body>
+</html>

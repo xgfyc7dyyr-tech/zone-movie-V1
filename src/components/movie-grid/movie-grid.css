@@ -1,0 +1,244 @@
+/* ═══════════════════════════════════════════════════════════
+   COMPONENT: MOVIE GRID & SLIDER STYLES
+   ═══════════════════════════════════════════════════════════ */
+
+.movie-section {
+    max-width: 1600px;
+    margin: 50px auto;
+    padding: 0 48px;
+    position: relative;
+    text-align: right;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-main);
+}
+
+.section-title i {
+    color: var(--primary);
+    width: 24px;
+    height: 24px;
+}
+
+.section-nav {
+    display: flex;
+    gap: 8px;
+}
+
+.section-arrow {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.section-arrow:hover {
+    background: var(--primary);
+    color: #ffffff;
+    box-shadow: 0 4px 15px var(--primary-glow);
+    transform: scale(1.05);
+}
+
+/* کانتینر اسلایدر افقی */
+.movie-slider-wrapper {
+    position: relative;
+    overflow-x: auto;
+    scrollbar-width: none; /* Firefox */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: 8px 4px;
+}
+
+.movie-slider-wrapper::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+
+.movie-slider-track {
+    display: flex;
+    gap: 20px;
+}
+
+/* استایل اختصاصی کارت فیلم شیشه‌ای */
+.movie-card {
+    flex: 0 0 190px;
+    width: 190px;
+    position: relative;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    transition: transform var(--transition-smooth), 
+                box-shadow var(--transition-smooth),
+                border-color var(--transition-smooth);
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.movie-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 20px var(--primary-glow);
+    border-color: var(--primary);
+}
+
+.movie-card__image {
+    width: 100%;
+    height: 270px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #12141d, #1e293b);
+}
+
+.movie-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-smooth);
+}
+
+.movie-card:hover .movie-card__image img {
+    transform: scale(1.08);
+}
+
+/* بج‌های شناور روی کارت */
+.movie-card__badges {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 5;
+}
+
+.movie-card__badge {
+    background: rgba(18, 20, 29, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    width: fit-content;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.movie-card__badge--imdb {
+    background: #f59e0b;
+    color: #000000;
+    border: none;
+    font-weight: 800;
+}
+
+/* لایه هوور شیشه‌ای روی کارت */
+.movie-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(9, 10, 15, 0.72);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+    z-index: 4;
+}
+
+.movie-card:hover .movie-card__overlay {
+    opacity: 1;
+}
+
+.movie-card__play-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px var(--primary-glow);
+    transform: scale(0.8);
+    transition: transform var(--transition-smooth);
+}
+
+.movie-card:hover .movie-card__play-btn {
+    transform: scale(1);
+}
+
+/* اطلاعات متنی پایین کارت */
+.movie-card__info {
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.movie-card__title {
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.movie-card__meta {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* واکنش‌گرایی برای ابعاد کوچک‌تر */
+@media (max-width: 992px) {
+    .movie-section {
+        padding: 0 24px;
+        margin: 35px auto;
+    }
+}
+
+@media (max-width: 640px) {
+    .movie-section {
+        padding: 0 16px;
+        margin: 30px auto;
+    }
+    .section-title {
+        font-size: 1.15rem;
+    }
+    .movie-card {
+        flex: 0 0 140px;
+        width: 140px;
+    }
+    .movie-card__image {
+        height: 200px;
+    }
+    .movie-card__badge {
+        font-size: 0.65rem;
+        padding: 1px 6px;
+    }
+}

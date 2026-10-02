@@ -1,0 +1,244 @@
+/* ═══════════════════════════════════════════════════════════
+   COMPONENT: HIGH-PERFORMANCE GLASSMORPHIC FOOTER
+   (LAG-FREE SCROLL OPTIMIZED)
+   ═══════════════════════════════════════════════════════════ */
+
+.footer {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    margin-top: 60px;
+    position: relative;
+    z-index: 100;
+}
+
+/* 🚀 اورراید بهینه برای حذف لگ اسکرول روی المان‌های عریض */
+.footer__inner.glass-refraction {
+    /* حذف کامل فیلتر سنگین SVG برای جلوگیری از افت فریم کارت گرافیک */
+    backdrop-filter: blur(12px) saturate(150%) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(150%) !important;
+    
+    /* فعال‌سازی شتاب‌دهنده گرافیکی سخت‌افزاری */
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+    
+    /* تنظیم رنگ پس‌زمینه شیشه‌ای روان */
+    background: rgba(18, 20, 29, 0.82) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 
+        0 -15px 30px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+/* تم روشن فوتر بدون لگ */
+html.light-mode .footer__inner.glass-refraction {
+    background: rgba(255, 255, 255, 0.85) !important;
+    border-color: rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 
+        0 -15px 30px rgba(0, 0, 0, 0.03),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+.footer__inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 40px 48px 30px 48px;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.footer__grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 40px;
+    text-align: right;
+}
+
+.footer__col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.footer__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer__desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+}
+
+.footer__title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--text-main);
+    position: relative;
+    padding-bottom: 8px;
+    width: fit-content;
+}
+
+.footer__title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 30px;
+    height: 2px;
+    background: var(--primary);
+    border-radius: var(--radius-pill);
+    box-shadow: 0 0 8px var(--primary-glow);
+}
+
+.footer__links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer__link {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: var(--transition-fast);
+}
+
+.footer__link:hover {
+    color: var(--primary);
+    transform: translateX(-4px);
+}
+
+.footer__socials {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.social-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: var(--transition-fast);
+}
+
+.social-btn:hover {
+    color: #ffffff;
+    transform: translateY(-3px);
+}
+
+.social-btn--telegram:hover {
+    background: #0088cc;
+    box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
+    border-color: #0088cc;
+}
+
+.social-btn--instagram:hover {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    box-shadow: 0 4px 15px rgba(220, 39, 67, 0.4);
+    border-color: transparent;
+}
+
+.social-btn--youtube:hover {
+    background: #ff0000;
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+    border-color: #ff0000;
+}
+
+/* بخش کپی رایت پایین فوتر */
+.footer__bottom {
+    border-top: 1px solid var(--glass-border);
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.footer__copyright {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.footer__copyright i {
+    color: var(--accent);
+    width: 14px;
+    height: 14px;
+}
+
+/* دکمه بازگشت به بالا شیشه‌ای شناور بهینه‌شده */
+.back-to-top {
+    position: fixed;
+    bottom: 100px;
+    left: 30px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(18, 20, 29, 0.7);
+    border: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    z-index: 800;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translate3d(0, 15px, 0);
+    will-change: transform, opacity;
+    transition: opacity 0.3s, visibility 0.3s, transform 0.3s, background-color 0.2s, box-shadow 0.2s;
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate3d(0, 0, 0);
+}
+
+.back-to-top:hover {
+    background: var(--primary);
+    color: #ffffff;
+    box-shadow: 0 0 15px var(--primary-glow);
+    border-color: var(--primary);
+}
+
+/* واکنش‌گرایی فوتر */
+@media (max-width: 992px) {
+    .footer__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 640px) {
+    .footer__inner {
+        padding: 30px 20px 20px 20px;
+    }
+    .footer__grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    .footer__bottom {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+    .back-to-top {
+        bottom: 100px;
+        left: 20px;
+    }
+}

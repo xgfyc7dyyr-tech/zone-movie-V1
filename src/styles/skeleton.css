@@ -1,0 +1,82 @@
+/* ═══════════════════════════════════════════════════════════
+   UTILITY: GLASS SKELETON SHIMMER LOADING
+   ═══════════════════════════════════════════════════════════ */
+
+@keyframes skeleton-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.skeleton-shimmer-effect {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.03) 25%,
+        rgba(255, 255, 255, 0.09) 50%,
+        rgba(255, 255, 255, 0.03) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.6s infinite linear;
+}
+
+/* ساختار کارت اسکلتی */
+.movie-card--skeleton {
+    cursor: default !important;
+    pointer-events: none;
+}
+
+.movie-card--skeleton .movie-card__image {
+    background: rgba(255, 255, 255, 0.02) !important;
+}
+
+.movie-card--skeleton .skeleton-img {
+    width: 100%;
+    height: 100%;
+}
+
+.movie-card--skeleton .skeleton-badge {
+    height: 18px;
+    width: 45px;
+    border-radius: var(--radius-sm);
+}
+
+.movie-card--skeleton .skeleton-badge-sm {
+    height: 18px;
+    width: 35px;
+    border-radius: var(--radius-sm);
+}
+
+.movie-card--skeleton .skeleton-title {
+    height: 14px;
+    width: 80%;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.movie-card--skeleton .skeleton-text-left {
+    height: 10px;
+    width: 40px;
+    border-radius: 3px;
+}
+
+.movie-card--skeleton .skeleton-text-right {
+    height: 10px;
+    width: 80px;
+    border-radius: 3px;
+}
+
+/* ترنزیشن روان برای تبدیل اسکلت به کارت واقعی */
+.movie-slider-track {
+    transition: opacity var(--transition-smooth);
+}
+
+.movie-slider-track.fade-out {
+    opacity: 0;
+}
+
+.movie-slider-track.fade-in {
+    opacity: 1;
+}

@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>سریال دردویل: تولد دوباره - فصل‌ها، قسمت‌ها و دانلود | zonemovi</title>
+    
+    <!-- ⚡ اسکریپت فوری تم بدون فلیکر -->
+    <script>
+        (function() {
+            try {
+                if (localStorage.getItem('zone_theme') === 'light') {
+                    document.documentElement.classList.add('light-mode');
+                }
+            } catch (e) {}
+        })();
+    </script>
+
+    <!-- فونت وزیرمتن -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+    
+    <!-- آیکون‌های Lucide -->
+    <script src="https://unpkg.com/lucide@0.344.0/dist/umd/lucide.min.js" defer></script>
+</head>
+<body>
+
+    <!-- 🔮 ۱. هاله نور و رنگ داینامیک پس‌زمینه سراسری دو لایه ضدلگ (Dual Buffer) -->
+    <div class="global-ambient-backdrop" id="ambientBackdropA" style="background-image: url('https://image.tmdb.org/t/p/original/9BBTo63ANSm5v7g9rPBb9fZRjzp.jpg'); opacity: 1;"></div>
+    <div class="global-ambient-backdrop" id="ambientBackdropB" style="opacity: 0;"></div>
+    <div class="global-ambient-overlay"></div>
+
+    <!-- ═══════════════════════════════════════
+         COMPONENT: HEADER (شیشه‌ای ۳۸٪)
+    ═══════════════════════════════════════ -->
+    <header class="header" id="mainHeader">
+        <div class="header__inner glass-refraction">
+            
+            <a href="/" class="logo" aria-label="صفحه اصلی zonemovi">
+                <span class="logo__icon"><i data-lucide="clapperboard"></i></span>
+                <div class="logo__text">
+                    <span class="logo__title">zonemovi</span>
+                    <span class="logo__subtitle">Zone Movies</span>
+                </div>
+            </a>
+
+            <nav class="nav" aria-label="منوی اصلی">
+                <ul class="nav__list">
+                    <li><a href="/" class="nav__link"><i data-lucide="home"></i> خانه</a></li>
+                    <li><a href="./movie-single.html" class="nav__link"><i data-lucide="film"></i> فیلم‌ها</a></li>
+                    <li><a href="./series-single.html" class="nav__link nav__link--active"><i data-lucide="tv"></i> سریال‌ها</a></li>
+                    <li><a href="#" class="nav__link"><i data-lucide="sparkles"></i> برترین‌ها</a></li>
+                </ul>
+            </nav>
+
+            <div class="search-wrapper" id="searchWrapper">
+                <div class="search-container" id="searchContainer" aria-expanded="false">
+                    <button class="search-trigger" id="searchTrigger" aria-label="فتح کادر جستجو">
+                        <i data-lucide="search"></i>
+                    </button>
+                    <input type="text" class="search-input" id="searchInput" placeholder="جستجو در فیلم‌ها و سریال‌ها..." autocomplete="off">
+                    <button class="search-filter-btn" id="desktopFilterBtn"><i data-lucide="sliders-horizontal"></i></button>
+                    <button class="search-close" id="searchClose"><i data-lucide="x"></i></button>
+                </div>
+                <div class="search-results hidden" id="searchResults">
+                    <div class="search-results__header">
+                        <span>نتایج پیشنهادی</span>
+                        <span class="search-results__badge" id="resultsCount">0 مورد</span>
+                    </div>
+                    <div class="search-results__list" id="resultsList"></div>
+                </div>
+            </div>
+
+            <div class="header__actions">
+                <button class="icon-btn" id="themeToggle" aria-label="تغییر تم">
+                    <i data-lucide="sun" class="sun-icon"></i>
+                    <i data-lucide="moon" class="moon-icon hidden"></i>
+                </button>
+                <a href="#" class="btn-profile"><i data-lucide="user"></i><span>ورود</span></a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════
+         COMPONENT: iOS MOBILE BOTTOM DOCK
+    ═══════════════════════════════════════ -->
+    <nav class="ios-dock glass-refraction" aria-label="ناوبری موبایل">
+        <div class="dock-indicator" id="dockIndicator"></div>
+        <button class="dock-item" type="button"><i data-lucide="film"></i><span>فیلم</span></button>
+        <button class="dock-item dock-item--active" type="button"><i data-lucide="tv"></i><span>سریال</span></button>
+        <button class="dock-item" type="button"><i data-lucide="bookmark"></i><span>نشان‌شده</span></button>
+        <button class="dock-item" type="button"><i data-lucide="layout-grid"></i><span>منو</span></button>
+        <button class="dock-item" type="button"><i data-lucide="settings"></i><span>تنظیمات</span></button>
+    </nav>
+
+    <!-- MAIN APP CONTAINER -->
+    <main id="appContent" class="main-content">
+        
+        <!-- ویدیوی زنده هیرو پس‌زمینه -->
+        <div class="hero-media-wrapper">
+            <img id="heroPoster" class="hero-poster" src="https://image.tmdb.org/t/p/original/9BBTo63ANSm5v7g9rPBb9fZRjzp.jpg" alt="Poster">
+            <video id="heroVideo" class="hero-video" src="https://imdb-video.media-imdb.com/mc/vi224643865/vi224643865_720p.mp4" playsinline muted></video>
+        </div>
+
+        <div class="single-container">
+
+            <!-- 🧭 ۱. مسیر ناوبری شیشه‌ای سمت راست (RTL) -->
+            <nav class="breadcrumb-container" aria-label="مسیر ناوبری">
+                <ul class="breadcrumb-list">
+                    <li><a href="/" class="breadcrumb-link"><i data-lucide="home" style="width:14px; margin-left:4px; vertical-align:middle;"></i>خانه</a></li>
+                    <li><i data-lucide="chevron-left" class="breadcrumb-separator"></i></li>
+                    <li><a href="#" class="breadcrumb-link">سریال‌ها</a></li>
+                    <li><i data-lucide="chevron-left" class="breadcrumb-separator"></i></li>
+                    <li class="breadcrumb-active">دردویل: تولد دوباره (Daredevil: Born Again)</li>
+                </ul>
+            </nav>
+            
+            <!-- چیدمان هیرو Cinejoy دو ستونه -->
+            <div class="cinejoy-hero-layout">
+                
+                <!-- 👈 ستون راست: اطلاعات سریال -->
+                <div class="cinejoy-main-meta">
+
+                    <!-- وضعیت پخش زنده سریال -->
+                    <div class="series-live-status-badge">
+                        <span class="pulse-dot"></span>
+                        <span>در حال پخش • سه‌شنبه‌ها (قسمت جدید)</span>
+                    </div>
+
+                    <!-- عنوان سریال با لوگوتایپ ادغام شده -->
+                    <div class="cinejoy-title-container">
+                        <h1 class="sr-only">دردویل: تولد دوباره - Daredevil: Born Again</h1>
+                        <img src="https://image.tmdb.org/t/p/w500/vbZcDHC5IFylYuRnp3eyOs5rTV1.png" class="cinejoy-title-png" alt="Daredevil Born Again">
+                    </div>
+
+                    <!-- سطر مشخصات، فصل‌ها و ژانرها -->
+                    <div class="cinejoy-meta-line">
+                        <span>2025 - 2026</span>
+                        <span class="meta-bullet">•</span>
+                        <span class="meta-highlight-tag">فصل 1 (18 قسمت)</span>
+                        <span class="meta-bullet">•</span>
+                        <span>میانگین 50 دقیقه</span>
+                        <span class="meta-bullet">•</span>
+                        <a href="./genres.html#action" class="meta-genre-link">اکشن</a>
+                        <span class="meta-bullet">•</span>
+                        <a href="./genres.html#crime" class="meta-genre-link">جنایی</a>
+                        <span class="meta-bullet">•</span>
+                        <a href="./genres.html#drama" class="meta-genre-link">درام حقوقی</a>
+                    </div>
+
+                    <!-- نمرات ۴گانه معتبر -->
+                    <div class="cinejoy-ratings-pack">
+                        <div class="rating-pill has-rating-tooltip" data-tooltip="پایگاه داده TMDB">
+                            <div class="rating-brand-badge">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Tmdb.new.logo.svg" alt="TMDB" class="rating-logo-img rating-logo-img--tmdb" onerror="this.style.display='none'">
+                            </div>
+                            <span class="rating-val" style="color:#01b4e4;">8.5</span>
+                        </div>
+                        <div class="rating-pill has-rating-tooltip" data-tooltip="بانک اطلاعات اینترنتی فیلم‌ها و سریال‌ها (IMDb)">
+                            <div class="rating-brand-badge">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg" alt="IMDb" class="rating-logo-img rating-logo-img--imdb">
+                            </div>
+                            <span class="rating-val">8.8</span>
+                        </div>
+                        <div class="rating-pill has-rating-tooltip" data-tooltip="نمره منتقدان راتن تومیتوز (Rotten Tomatoes)">
+                            <div class="rating-brand-badge">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Rotten_Tomatoes.svg" alt="Rotten Tomatoes" class="rating-logo-img rating-logo-img--tomato">
+                            </div>
+                            <span class="rating-val">94%</span>
+                        </div>
+                        <div class="rating-pill has-rating-tooltip" data-tooltip="میزان رضایت تماشاگران (Audience Score)">
+                            <div class="rating-brand-badge">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Rotten_Tomatoes_positive_audience.svg" alt="Audience Score" class="rating-logo-img rating-logo-img--audience">
+                            </div>
+                            <span class="rating-val">96%</span>
+                        </div>
+                    </div>
+
+                    <!-- خلاصه داستان سریال -->
+                    <div class="cinejoy-summary-wrapper">
+                        <p class="cinejoy-summary" id="movieSummary">
+                            مت مورداک، وکیل نابینا با توانایی‌های حسی خارق‌العاده، روزها در دادگاه‌های نیویورک برای اجرای عدالت مبارزه می‌کند و شب‌ها به عنوان دردویل در خیابان‌های بی‌رحم هلز کیچن با خلافکاران روبرو می‌شود. با ورود ویلسون فیسک (کینگ‌پین) به عرصه سیاست و تلاش برای شهردار شدن، مت وارد تاریک‌ترین رویارویی زندگی خود می‌شود...
+                        </p>
+                        <button class="read-more-link" id="btnReadMore" type="button">
+                            <span>ادامه مطلب</span>
+                            <i data-lucide="chevron-down"></i>
+                        </button>
+                    </div>
+
+                    <!-- دکمه‌های کپسولی اکشن -->
+                    <div class="cinejoy-actions-row">
+                        <button class="btn-cinejoy-play" id="btnPlayMainTrailer">
+                            <i data-lucide="play" style="fill: #000; width:16px; height:16px;"></i>
+                            <span>پخش تریلر رسمی</span>
+                        </button>
+                        <button class="btn-cinejoy-pill-action" title="افزودن به لیست من">
+                            <i data-lucide="bookmark"></i>
+                            <span>نشان کردن</span>
+                        </button>
+                        <a href="#episodesSection" class="btn-cinejoy-pill-action">
+                            <i data-lucide="list-video"></i>
+                            <span>مشاهده قسمت‌ها</span>
+                        </a>
+                        
+                        <!-- 🔊 دکمه کنترل صدا با نوار پیشرفت حلقه‌ای و Replay -->
+                        <button class="action-circle-btn action-circle-btn--sound is-loading" id="muteToggleBtn" title="وصل کردن صدای پیش‌نمایش" aria-label="کنترل صدای پیش‌نمایش">
+                            <svg class="sound-progress-svg" viewBox="0 0 44 44">
+                                <circle class="sound-progress-bg" cx="22" cy="22" r="20"></circle>
+                                <circle class="sound-progress-bar" id="soundProgressBar" cx="22" cy="22" r="20"></circle>
+                            </svg>
+                            <svg class="sound-icon sound-icon--muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                <line x1="22" x2="16" y1="9" y2="15"></line>
+                                <line x1="16" x2="22" y1="9" y2="15"></line>
+                            </svg>
+                            <svg class="sound-icon sound-icon--unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                            </svg>
+                            <svg class="sound-icon sound-icon--replay" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                                <path d="M3 3v5h5"></path>
+                            </svg>
+                        </button>
+
+                        <button class="action-circle-btn" id="btnLikeReact" data-count="3840" title="افزودن به علاقه‌مندی‌ها">
+                            <i data-lucide="heart" class="heart-icon"></i>
+                        </button>
+
+                        <!-- منوی اشتراک‌گذاری -->
+                        <div class="share-wrapper-btn">
+                            <button class="action-circle-btn" id="btnShare" title="اشتراک‌گذاری"><i data-lucide="share-2"></i></button>
+                            <div class="share-dropdown hidden glass-refraction" id="shareDropdown">
+                                <button class="share-drop-item" id="btnCopyLink"><i data-lucide="copy"></i>کپی لینک صفحه</button>
+                                <a href="https://t.me/share/url?url=https://zonemovi.com/series-single&text=Daredevil" target="_blank" class="share-drop-item"><i data-lucide="send"></i>اشتراک در تلگرام</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 🌟 ویجت امتیازدهی کاربران با سقف ۳ بار ویرایش و نمایش نمره رسمی ZM -->
+                    <div class="user-star-rating-box glass-refraction" id="userStarRatingBox" style="margin-top: 10px;">
+                        <div class="rating-header-row">
+                            <span class="star-rating-title">امتیاز شما به این سریال:</span>
+                            <span class="rating-status-badge hidden" id="ratingStatusBadge">فوق‌العاده</span>
+                        </div>
+                        <div class="rating-stars" id="ratingStars">
+                            <button type="button" class="star-btn" data-value="1" aria-label="1 ستاره"><i data-lucide="star"></i></button>
+                            <button type="button" class="star-btn" data-value="2" aria-label="2 ستاره"><i data-lucide="star"></i></button>
+                            <button type="button" class="star-btn" data-value="3" aria-label="3 ستاره"><i data-lucide="star"></i></button>
+                            <button type="button" class="star-btn" data-value="4" aria-label="4 ستاره"><i data-lucide="star"></i></button>
+                            <button type="button" class="star-btn" data-value="5" aria-label="5 ستاره"><i data-lucide="star"></i></button>
+                        </div>
+                        <div class="zm-score-row">
+                            <span class="zm-logo-badge">ZM</span>
+                            <span>میانگین کاربران زون‌مووی: <strong>8.6</strong> / 10 (312 رأی)</span>
+                        </div>
+                    </div>
+
+                    <!-- 🌟 کارت وضعیت ثبت نهایی نمره -->
+                    <div class="user-voted-confirmed-card glass-refraction hidden" id="userVotedConfirmedCard">
+                        <div class="user-voted-top">
+                            <div class="user-voted-info">
+                                <i data-lucide="check-circle-2"></i>
+                                <span id="confirmedUserScoreText">امتیاز شما: 10 / 10</span>
+                            </div>
+                            <button class="btn-edit-rating" id="btnEditRating" type="button">ویرایش نمره (3 فرصت)</button>
+                        </div>
+                        <div class="user-voted-meta-zm">
+                            <span class="zm-logo-badge">ZM</span>
+                            <span>نمره جامعه زون‌مووی: <strong>8.6</strong> / 10 (312 رأی ثبت شده)</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- 👉 ستون چپ: پنل شناسنامه سریال -->
+                <div class="cinejoy-sidebar-specs glass-refraction">
+                    <div class="specs-list">
+                        
+                        <div class="spec-item">
+                            <span class="spec-label">وضعیت انتشار</span>
+                            <span class="spec-value" style="color:#10b981; font-weight:800;">در حال پخش (فصل 1)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">تعداد کل فصل‌ها</span>
+                            <span class="spec-value">2 فصل (فصل دوم تایید شده)</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">روز پخش هفتگی</span>
+                            <span class="spec-value">هر سه‌شنبه ساعت 18:30</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">شبکه اصلی پخش</span>
+                            <span class="spec-value spec-value--neon">Disney+ • Marvel Television</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">کشور سازنده</span>
+                            <span class="spec-value">ایالات متحده آمریکا</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">رده سنی</span>
+                            <span class="spec-value" style="color:#ef4444; font-weight:900;">TV-MA (+18 بزرگسال)</span>
+                        </div>
+                        
+                        <div class="spec-item spec-item--clickable">
+                            <div class="spec-clickable-label">
+                                <i data-lucide="layout-grid"></i>
+                                <span>جهان داستانی</span>
+                            </div>
+                            <div class="spec-clickable-val">
+                                <span class="spec-value spec-value--neon">دنیای سینمایی مارول (MCU)</span>
+                                <i data-lucide="chevron-left" class="spec-arrow"></i>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="cinejoy-studio-logos">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Marvel_Logo.svg" alt="Marvel" class="studio-logo-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg" alt="Disney+" class="studio-logo-img" style="filter: brightness(0) invert(1);">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 🧬 تب‌های سه‌گانه محتوای سریال -->
+            <div class="cinejoy-tabs-container" id="episodesSection">
+                <div class="tab-buttons-row">
+                    <button class="tab-nav-btn active" data-target="episodesTabPane"><i data-lucide="list-video"></i><span>فصل‌ها و قسمت‌ها</span></button>
+                    <button class="tab-nav-btn" data-target="mediaTabPane"><i data-lucide="film"></i><span>بازیگران و تریلرها</span></button>
+                    <button class="tab-nav-btn" data-target="commentsTabPane"><i data-lucide="message-square"></i><span>دیدگاه‌های سریال (20)</span></button>
+                </div>
+
+                <!-- 📂 تب اول: فصل‌ها، فیلترها، دکمه جدول امتیازات و کارت قسمت‌ها -->
+                <div class="tab-pane-content" id="episodesTabPane">
+                    
+                    <!-- نوار کنترلر و فیلترهای پیشرفته فصل‌ها -->
+                    <div class="series-season-bar glass-refraction">
+                        
+                        <!-- منوی کشویی انتخاب فصل -->
+                        <div class="season-selector-wrapper">
+                            <label for="seasonSelect"><i data-lucide="layers"></i> <span>فصل:</span></label>
+                            <select id="seasonSelect" class="season-select-field">
+                                <option value="1" selected>فصل اول (Season 1) • 18 قسمت</option>
+                                <option value="2">فصل دوم (Season 2) • در حال تولید</option>
+                            </select>
+                        </div>
+
+                        <!-- دکمه‌های کنترل مرتب‌سازی و جدول حرارتی امتیازات -->
+                        <div class="season-actions-cluster">
+                            
+                            <!-- دکمه باز کردن جدول حرارتی امتیازات (Ratings Grid) -->
+                            <button class="btn-ratings-matrix" id="btnOpenRatingsGrid" type="button">
+                                <i data-lucide="grid"></i>
+                                <span>جدول امتیازات (Ratings)</span>
+                                <span class="badge-ratings-count">S1 - S75</span>
+                            </button>
+
+                            <!-- دکمه معکوس‌سازی ترتیب قسمت‌ها -->
+                            <button class="btn-sort-episodes" id="btnSortEpisodes" type="button" data-order="asc">
+                                <i data-lucide="arrow-down-up"></i>
+                                <span id="sortEpisodesText">ترتیب: قسمت اول به آخر</span>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <!-- کانتینر رندر کارت‌های هر قسمت سریال -->
+                    <div class="episodes-list-container" id="episodesListContainer">
+                        <!-- کارت‌های قسمت‌ها به صورت پویا با JS رندر می‌شوند -->
+                    </div>
+
+                </div>
+
+                <!-- 📂 تب دوم: بازیگران و رسانه‌ها (IMDb Style) -->
+                <div class="tab-pane-content hidden" id="mediaTabPane">
+                    
+                    <!-- 👥 اسلایدر پرتره‌های دایره‌ای بازیگران -->
+                    <section class="cast-section" style="margin-top:10px;">
+                        <div class="cinejoy-section-heading">
+                            <div class="heading-accent-bar"></div>
+                            <div class="heading-text-group">
+                                <h3 class="heading-title">ستارگان و عوامل سریال</h3>
+                                <p class="heading-subtitle">تیم بازیگری و کارگردانی (با قابلیت دنبال کردن و اعلان فیلم/سریال جدید)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="cast-slider-wrapper" id="castSliderWrapper">
+                            <div class="cast-slider-track">
+                                
+                                <div class="cast-card-circle glass-refraction">
+                                    <div class="cast-avatar-wrap">
+                                        <img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="چارلی کاکس">
+                                        <div class="cast-social-overlay">
+                                            <a href="https://instagram.com" target="_blank" class="social-circle-btn" title="اینستاگرام"><i data-lucide="instagram"></i></a>
+                                            <a href="https://twitter.com" target="_blank" class="social-circle-btn" title="پلتفرم X"><i data-lucide="twitter"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="cast-name">چارلی کاکس</div>
+                                    <div class="cast-character">مت مورداک / دردویل</div>
+                                    <div class="crew-follow-box">
+                                        <button class="btn-follow-crew" type="button"><i data-lucide="user-plus"></i><span>دنبال کردن</span></button>
+                                        <button class="btn-bell-crew" title="فعال‌سازی اعلان سریال جدید" type="button"><i data-lucide="bell"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="cast-card-circle glass-refraction">
+                                    <div class="cast-avatar-wrap">
+                                        <img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="وینسنت دن آفریو">
+                                        <div class="cast-social-overlay">
+                                            <a href="https://instagram.com" target="_blank" class="social-circle-btn" title="اینستاگرام"><i data-lucide="instagram"></i></a>
+                                            <a href="https://twitter.com" target="_blank" class="social-circle-btn" title="پلتفرم X"><i data-lucide="twitter"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="cast-name">وینسنت دن آفریو</div>
+                                    <div class="cast-character">ویلسون فیسک / کینگ‌پین</div>
+                                    <div class="crew-follow-box">
+                                        <button class="btn-follow-crew" type="button"><i data-lucide="user-plus"></i><span>دنبال کردن</span></button>
+                                        <button class="btn-bell-crew" title="فعال‌سازی اعلان سریال جدید" type="button"><i data-lucide="bell"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="cast-card-circle glass-refraction">
+                                    <div class="cast-avatar-wrap">
+                                        <img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="جون برنتال">
+                                        <div class="cast-social-overlay">
+                                            <a href="https://instagram.com" target="_blank" class="social-circle-btn" title="اینستاگرام"><i data-lucide="instagram"></i></a>
+                                            <a href="https://twitter.com" target="_blank" class="social-circle-btn" title="پلتفرم X"><i data-lucide="twitter"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="cast-name">جون برنتال</div>
+                                    <div class="cast-character">فرانک کسل / پانیشر</div>
+                                    <div class="crew-follow-box">
+                                        <button class="btn-follow-crew" type="button"><i data-lucide="user-plus"></i><span>دنبال کردن</span></button>
+                                        <button class="btn-bell-crew" title="فعال‌سازی اعلان سریال جدید" type="button"><i data-lucide="bell"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="cast-card-circle glass-refraction">
+                                    <div class="cast-avatar-wrap">
+                                        <img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="دبورا آن ول">
+                                        <div class="cast-social-overlay">
+                                            <a href="https://instagram.com" target="_blank" class="social-circle-btn" title="اینستاگرام"><i data-lucide="instagram"></i></a>
+                                            <a href="https://twitter.com" target="_blank" class="social-circle-btn" title="پلتفرم X"><i data-lucide="twitter"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="cast-name">دبورا آن ول</div>
+                                    <div class="cast-character">کارن پیج</div>
+                                    <div class="crew-follow-box">
+                                        <button class="btn-follow-crew" type="button"><i data-lucide="user-plus"></i><span>دنبال کردن</span></button>
+                                        <button class="btn-bell-crew" title="فعال‌سازی اعلان سریال جدید" type="button"><i data-lucide="bell"></i></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 🎥 بخش ویدیوها و تریلرهای سریال -->
+                    <section class="imdb-media-section">
+                        <div class="imdb-section-header">
+                            <div class="imdb-header-title">
+                                <span class="imdb-accent-bar"></span>
+                                <h3>ویدیوها و تیزرها</h3>
+                                <span class="imdb-counter-badge">14</span>
+                                <i data-lucide="chevron-left" class="imdb-header-arrow"></i>
+                            </div>
+                        </div>
+
+                        <div class="imdb-video-grid-featured">
+                            <div class="imdb-video-card" data-video="https://www.w3schools.com/html/mov_bbb.mp4" data-title="تیزر رسمی فصل اول Daredevil: Born Again">
+                                <div class="imdb-thumb-wrap">
+                                    <img src="https://image.tmdb.org/t/p/original/9BBTo63ANSm5v7g9rPBb9fZRjzp.jpg" alt="Trailer 1">
+                                    <div class="imdb-duration-badge"><i data-lucide="play-circle"></i><span>Trailer 2:34</span></div>
+                                </div>
+                                <div class="imdb-video-info">
+                                    <h4 class="imdb-video-title">Daredevil: Born Again - Official Trailer</h4>
+                                    <div class="imdb-reactions-row"><span><i data-lucide="thumbs-up"></i> 142</span> <span><i data-lucide="heart"></i> 95</span></div>
+                                </div>
+                            </div>
+
+                            <div class="imdb-video-card" data-video="https://www.w3schools.com/html/movie.mp4" data-title="پشت صحنه مبارزات مت مورداک">
+                                <div class="imdb-thumb-wrap">
+                                    <img src="https://intocdn.top/wp-content/uploads/2026/06/h37hqVLmCW00ImewLAHT1DadOky.jpg" alt="Featurette 1">
+                                    <div class="imdb-duration-badge"><i data-lucide="play-circle"></i><span>Clip 4:12</span></div>
+                                </div>
+                                <div class="imdb-video-info">
+                                    <h4 class="imdb-video-title">The Devil in the Streets - Fight Featurette</h4>
+                                    <div class="imdb-reactions-row"><span><i data-lucide="thumbs-up"></i> 88</span> <span><i data-lucide="heart"></i> 45</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="imdb-video-grid-sub">
+                            <div class="imdb-video-card" data-video="https://www.w3schools.com/html/mov_bbb.mp4" data-title="تقابل مت مورداک و کینگ‌پین">
+                                <div class="imdb-thumb-wrap">
+                                    <img src="https://intocdn.top/wp-content/uploads/2024/11/bJtOEfr3jZMYLDNAoinXzvVAhre.jpg" alt="Clip 3">
+                                    <div class="imdb-duration-badge"><i data-lucide="play-circle"></i> <span>Clip 1:45</span></div>
+                                </div>
+                                <div class="imdb-video-info">
+                                    <h5 class="imdb-video-title">Fisk's Press Conference - Clip</h5>
+                                    <div class="imdb-reactions-row"><span><i data-lucide="thumbs-up"></i> 32</span> <span><i data-lucide="heart"></i> 18</span></div>
+                                </div>
+                            </div>
+
+                            <div class="imdb-video-card" data-video="https://www.w3schools.com/html/movie.mp4" data-title="مصاحبه با چارلی کاکس درباره بازگشت">
+                                <div class="imdb-thumb-wrap">
+                                    <img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="Clip 4">
+                                    <div class="imdb-duration-badge"><i data-lucide="play-circle"></i> <span>Interview 3:20</span></div>
+                                </div>
+                                <div class="imdb-video-info">
+                                    <h5 class="imdb-video-title">Charlie Cox on Returning to MCU</h5>
+                                    <div class="imdb-reactions-row"><span><i data-lucide="thumbs-up"></i> 54</span> <span><i data-lucide="heart"></i> 29</span></div>
+                                </div>
+                            </div>
+
+                            <div class="imdb-video-card" data-video="https://www.w3schools.com/html/mov_bbb.mp4" data-title="تیزر دوم سریال">
+                                <div class="imdb-thumb-wrap">
+                                    <img src="https://image.tmdb.org/t/p/original/vc8bCGjdVBDXg9SpzHvaTevgNmG.jpg" alt="Clip 5">
+                                    <div class="imdb-duration-badge"><i data-lucide="play-circle"></i> <span>Teaser 0:45</span></div>
+                                </div>
+                                <div class="imdb-video-info">
+                                    <h5 class="imdb-video-title">Justice Never Dies - Teaser</h5>
+                                    <div class="imdb-reactions-row"><span><i data-lucide="thumbs-up"></i> 76</span> <span><i data-lucide="heart"></i> 40</span></div>
+                                </div>
+                            </div>
+
+                            <div class="imdb-video-card" data-video="https://www.w3schools.com/html/movie.mp4" data-title="آنالیز فنی لباس جدید دردویل">
+                                <div class="imdb-thumb-wrap">
+                                    <img src="https://image.tmdb.org/t/p/original/5myQbDzw3l8K9yofUXRJ4UTVgam.jpg" alt="Clip 6">
+                                    <div class="imdb-duration-badge"><i data-lucide="play-circle"></i> <span>Clip 2:10</span></div>
+                                </div>
+                                <div class="imdb-video-info">
+                                    <h5 class="imdb-video-title">The New Suit Revealed</h5>
+                                    <div class="imdb-reactions-row"><span><i data-lucide="thumbs-up"></i> 89</span> <span><i data-lucide="heart"></i> 52</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 🖼️ بخش تصاویر IMDb با شمارنده +267 -->
+                    <section class="imdb-media-section">
+                        <div class="imdb-section-header">
+                            <div class="imdb-header-title">
+                                <span class="imdb-accent-bar"></span>
+                                <h3>تصاویر و شات‌های سریال</h3>
+                                <span class="imdb-counter-badge">185</span>
+                                <i data-lucide="chevron-left" class="imdb-header-arrow"></i>
+                            </div>
+                        </div>
+
+                        <div class="imdb-photos-grid-featured">
+                            <div class="imdb-photo-card"><img src="https://image.tmdb.org/t/p/original/9BBTo63ANSm5v7g9rPBb9fZRjzp.jpg" alt="Photo 1"></div>
+                            <div class="imdb-photo-card"><img src="https://intocdn.top/wp-content/uploads/2026/06/h37hqVLmCW00ImewLAHT1DadOky.jpg" alt="Photo 2"></div>
+                        </div>
+
+                        <div class="imdb-photos-grid-sub">
+                            <div class="imdb-photo-card"><img src="https://intocdn.top/wp-content/uploads/2024/11/bJtOEfr3jZMYLDNAoinXzvVAhre.jpg" alt="Photo 3"></div>
+                            <div class="imdb-photo-card"><img src="https://image.tmdb.org/t/p/original/vc8bCGjdVBDXg9SpzHvaTevgNmG.jpg" alt="Photo 4"></div>
+                            <div class="imdb-photo-card"><img src="https://image.tmdb.org/t/p/original/5myQbDzw3l8K9yofUXRJ4UTVgam.jpg" alt="Photo 5"></div>
+                            
+                            <div class="imdb-photo-card has-more-overlay">
+                                <img src="https://image.tmdb.org/t/p/original/14QbnygCuTO0vl7CAFmPf1fgZfV.jpg" alt="Photo 6">
+                                <div class="imdb-more-photos-overlay">
+                                    <span>+ 180</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+                <!-- 📂 تب سوم: دیدگاه‌های کاربران با ضداسپویل و سیستم ریپلای کامل -->
+                <div class="tab-pane-content hidden" id="commentsTabPane">
+                    <section class="comments-section glass-refraction" style="margin-top:10px;">
+                        <div class="cinejoy-section-heading">
+                            <div class="heading-accent-bar"></div>
+                            <div class="heading-text-group">
+                                <h3 class="heading-title">دیدگاه‌ها و نقد کاربران درباره سریال (20 نظر)</h3>
+                                <p class="heading-subtitle">نظرتان را درباره قسمت‌های این اثر با دیگران به اشتراک بگذارید</p>
+                            </div>
+                        </div>
+                        
+                        <div class="comment-input-area" id="mainCommentForm">
+                            <div class="comment-form-grid">
+                                <div class="comment-form-input-wrapper">
+                                    <i data-lucide="user"></i>
+                                    <input type="text" id="commentAuthor" class="comment-input-field" placeholder="نام نمایشی شما...">
+                                </div>
+                                <div class="comment-form-input-wrapper">
+                                    <i data-lucide="mail"></i>
+                                    <input type="email" id="commentEmail" class="comment-input-field" placeholder="آدرس ایمیل (نمایان نخواهد شد)...">
+                                </div>
+                            </div>
+                            <textarea class="comment-textarea" id="commentText" placeholder="دیدگاه خود را درباره این سریال و قسمت‌ها بنویسید..."></textarea>
+                            
+                            <div class="comment-action-bar">
+                                <label class="comment-spoiler-toggle">
+                                    <input type="checkbox" id="commentIsSpoiler">
+                                    <span class="custom-checkbox"></span>
+                                    <span class="checkbox-label"><i data-lucide="alert-triangle" style="width:14px; vertical-align:middle; margin-left:3px;"></i> حاوی اسپویل داستان</span>
+                                </label>
+                                <button class="btn-submit-comment" id="btnSubmitComment">
+                                    <i data-lucide="pen-tool" style="width:14px; margin-left:6px; vertical-align:middle;"></i>
+                                    <span>ارسال دیدگاه</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- لیست نظرات -->
+                        <div class="comments-list" id="commentsListContainer">
+                            <div class="comments-page active" id="commentsPage1">
+
+                                <div class="comment-card-wrapper" data-id="comment-1">
+                                    <div class="comment-item">
+                                        <div class="comment-side-likes">
+                                            <button class="btn-comment-like" data-count="34" title="می‌پسندم"><i data-lucide="thumbs-up"></i><span class="like-count">34</span></button>
+                                            <button class="btn-comment-dislike" data-count="1" title="نمی‌پسندم"><i data-lucide="thumbs-down"></i><span class="dislike-count">1</span></button>
+                                        </div>
+                                        <div class="comment-avatar"><img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="کاربر"></div>
+                                        <div class="comment-content">
+                                            <div class="comment-user">سینا ای تی <span class="comment-date">2 روز پیش</span></div>
+                                            <p class="comment-text">واقعاً بازگشت دردویل به دنیای مارول فوق‌العاده بود! سکانس‌های مبارزه راهرویی توی قسمت اول شاهکار بود.</p>
+                                            <div class="comment-actions">
+                                                <button class="btn-comment-reply" data-id="comment-1" data-author="سینا ای تی"><i data-lucide="reply-all"></i> پاسخ به این نظر</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="nested-replies-container">
+                                        <div class="comment-item comment-item--reply">
+                                            <div class="comment-avatar"><img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="کاربر"></div>
+                                            <div class="comment-content">
+                                                <div class="comment-user">
+                                                    <span>امیرحسین</span>
+                                                    <span class="reply-target-tag"><i data-lucide="corner-down-left"></i> در پاسخ به @سینا ای تی</span>
+                                                    <span class="comment-date">1 روز پیش</span>
+                                                </div>
+                                                <p class="comment-text">دقیقاً! خشونت و درجه‌بندی سنی بزرگسال سریال حفظ شده و عالیه.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="comment-card-wrapper" data-id="comment-2">
+                                    <div class="comment-item">
+                                        <div class="comment-side-likes">
+                                            <button class="btn-comment-like" data-count="48" title="می‌پسندم"><i data-lucide="thumbs-up"></i><span class="like-count">48</span></button>
+                                            <button class="btn-comment-dislike" data-count="2" title="نمی‌پسندم"><i data-lucide="thumbs-down"></i><span class="dislike-count">2</span></button>
+                                        </div>
+                                        <div class="comment-avatar"><img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="کاربر"></div>
+                                        <div class="comment-content">
+                                            <div class="comment-user">امیر مارول <span class="comment-date">دیروز</span></div>
+                                            <div class="comment-spoiler-wrapper">
+                                                <div class="comment-spoiler-warning"><i data-lucide="alert-triangle" style="width:14px; margin-left:4px;"></i> حاوی اسپویل داستان (برای مشاهده کلیک کنید)</div>
+                                                <p class="comment-text is-spoiler">حضور پانیشر توی قسمت سوم و تقابل ایدئولوژیکش با مت مورداک فوق‌العاده احساسی بود!</p>
+                                            </div>
+                                            <div class="comment-actions">
+                                                <button class="btn-comment-reply" data-id="comment-2" data-author="امیر مارول"><i data-lucide="reply-all"></i> پاسخ به این نظر</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="nested-replies-container"></div>
+                                </div>
+
+                            </div>
+
+                            <div class="comments-page hidden" id="commentsPage2">
+                                <div class="comment-card-wrapper" data-id="comment-3">
+                                    <div class="comment-item">
+                                        <div class="comment-side-likes">
+                                            <button class="btn-comment-like" data-count="19" title="می‌پسندم"><i data-lucide="thumbs-up"></i><span class="like-count">19</span></button>
+                                            <button class="btn-comment-dislike" data-count="0" title="نمی‌پسندم"><i data-lucide="thumbs-down"></i><span class="dislike-count">0</span></button>
+                                        </div>
+                                        <div class="comment-avatar"><img src="https://intocdn.top/wp-content/uploads/2025/01/61cSwVmu0urv7H5eqRFwYlnd3oS-180x280.jpg" alt="کاربر"></div>
+                                        <div class="comment-content">
+                                            <div class="comment-user">رضا فیلم‌بین <span class="comment-date">4 روز پیش</span></div>
+                                            <p class="comment-text">سرعت دانلود قسمت‌های 1080p واقعاً عالیه. زیرنویس‌ها هم کاملاً سینک هستن.</p>
+                                            <div class="comment-actions">
+                                                <button class="btn-comment-reply" data-id="comment-3" data-author="رضا فیلم‌بین"><i data-lucide="reply-all"></i> پاسخ به این نظر</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="nested-replies-container"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- شماره صفحات کامنت -->
+                        <div class="comment-pagination">
+                            <button class="pag-btn pag-btn--prev" id="pagPrevBtn" type="button"><i data-lucide="chevron-right"></i></button>
+                            <button class="pag-btn pag-btn--num active" data-page="1" type="button">1</button>
+                            <button class="pag-btn pag-btn--num" data-page="2" type="button">2</button>
+                            <button class="pag-btn pag-btn--next" id="pagNextBtn" type="button"><i data-lucide="chevron-left"></i></button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- 🔗 اسلایدر آثار مرتبط و ۳ بعدی با تغییر هاله پس‌زمینه -->
+            <section class="movie-section" id="franchiseSection" style="margin-top:40px;">
+                <div class="section-header">
+                    <div class="cinejoy-section-heading" style="margin-bottom:0;">
+                        <div class="heading-accent-bar"></div>
+                        <div class="heading-text-group">
+                            <h3 class="heading-title">سریال‌ها و فیلم‌های مرتبط</h3>
+                            <p class="heading-subtitle">عناوین مرتبط با مدافعان نیویورک و دنیای استریت‌لول مارول</p>
+                        </div>
+                    </div>
+                    <div class="section-nav">
+                        <button class="section-arrow arrow-prev" id="franchisePrev"><i data-lucide="chevron-right"></i></button>
+                        <button class="section-arrow arrow-next" id="franchiseNext"><i data-lucide="chevron-left"></i></button>
+                    </div>
+                </div>
+
+                <div class="movie-slider-wrapper" id="franchiseSliderWrapper">
+                    <div class="movie-slider-track">
+
+                        <!-- کارت ۱: مجازاتگر (The Punisher) -->
+                        <div class="movie-card-container">
+                            <div class="movie-3d-card glass-refraction" data-bg="https://image.tmdb.org/t/p/original/vc8bCGjdVBDXg9SpzHvaTevgNmG.jpg">
+                                <div class="floating-imdb"><i data-lucide="star" style="fill:#000; width:13px; height:13px;"></i><span>8.5</span></div>
+                                <div class="floating-studio-png" title="Marvel Television"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Marvel_Logo.svg" alt="Marvel"></div>
+                                <div class="floating-dubbing-tag"><i data-lucide="headphones"></i><span>دوبله فارسی</span></div>
+
+                                <div class="poster-wrapper">
+                                    <img src="https://image.tmdb.org/t/p/w500/c24sv2weG6ScN0ap6xSRTGda4TV.jpg" alt="The Punisher">
+                                    <div class="poster-overlay"></div>
+                                </div>
+
+                                <div class="card-details-drawer">
+                                    <div class="drawer-header">
+                                        <span class="card-tag quality">2 فصل کامل</span>
+                                        <span class="card-tag dubbing">1080p</span>
+                                    </div>
+                                    <div class="drawer-summary">فرانک کسل پس از گرفتن انتقام مرگ خانواده‌اش، توطئه‌ای عمیق‌تر را در دنیای زیرزمینی نیویورک کشف می‌کند...</div>
+                                    <div class="drawer-details-grid">
+                                        <div class="drawer-item"><i data-lucide="star"></i> <span>8.5 / 10</span></div>
+                                        <div class="drawer-item"><i data-lucide="calendar"></i> <span>2017</span></div>
+                                        <div class="drawer-item full-width"><i data-lucide="users"></i> <span>جون برنتال، بن بارنز</span></div>
+                                    </div>
+                                </div>
+
+                                <div class="card-bottom-info">
+                                    <div class="card-meta-tags">
+                                        <span class="card-tag dubbing"><i data-lucide="headphones" style="width:11px; height:11px;"></i>دوبله</span>
+                                        <span class="card-tag">سریال</span>
+                                        <span class="card-tag quality">TV-MA</span>
+                                    </div>
+                                    <div class="card-actions-row">
+                                        <a href="./series-single.html" class="card-btn-main"><i data-lucide="download" style="width:13px; height:13px;"></i>دانلود قسمت‌ها</a>
+                                        <button class="card-btn-icon" title="نشان کردن"><i data-lucide="bookmark" style="width:15px; height:15px;"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- کارت ۲: مرد عنکبوتی: روز جدید -->
+                        <div class="movie-card-container">
+                            <div class="movie-3d-card glass-refraction" data-bg="https://image.tmdb.org/t/p/original/kkcwhgSFd81QDlXo8ytrpHPQjhy.jpg">
+                                <div class="floating-imdb"><i data-lucide="star" style="fill:#000; width:13px; height:13px;"></i><span>8.2</span></div>
+                                <div class="floating-studio-png" title="Marvel Studios"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Marvel_Logo.svg" alt="Marvel"></div>
+                                <div class="floating-dubbing-tag"><i data-lucide="headphones"></i><span>دوبله فارسی</span></div>
+
+                                <div class="poster-wrapper">
+                                    <img src="https://image.tmdb.org/t/p/w500/vbZcDHC5IFylYuRnp3eyOs5rTV1.png" alt="Spider-Man">
+                                    <div class="poster-overlay"></div>
+                                </div>
+
+                                <div class="card-details-drawer">
+                                    <div class="drawer-header">
+                                        <span class="card-tag quality">4K 2160p</span>
+                                    </div>
+                                    <div class="drawer-summary">پیتر پارکر در نیویورک با چالش‌های جدید روبرو می‌شود و مسیرش با وکلای هلز کیچن تلاقی می‌کند...</div>
+                                    <div class="drawer-details-grid">
+                                        <div class="drawer-item"><i data-lucide="star"></i> <span>8.2 / 10</span></div>
+                                        <div class="drawer-item"><i data-lucide="calendar"></i> <span>2026</span></div>
+                                    </div>
+                                </div>
+
+                                <div class="card-bottom-info">
+                                    <div class="card-meta-tags">
+                                        <span class="card-tag dubbing">دوبله</span>
+                                        <span class="card-tag">2026</span>
+                                        <span class="card-tag quality">4K</span>
+                                    </div>
+                                    <div class="card-actions-row">
+                                        <a href="./movie-single.html" class="card-btn-main"><i data-lucide="download" style="width:13px; height:13px;"></i>دانلود اثر</a>
+                                        <button class="card-btn-icon" title="نشان کردن"><i data-lucide="bookmark" style="width:15px; height:15px;"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         📊 پنجره تعاملی جدول حرارتی امتیازات (IMDb Ratings Heatmap)
+         اسکرول و مرور افقی از فصل S1 تا S75
+    ═══════════════════════════════════════════════════════════════════ -->
+    <div class="ratings-matrix-modal hidden" id="ratingsMatrixModal" aria-hidden="true">
+        <div class="ratings-matrix-card glass-refraction">
+            
+            <div class="ratings-matrix-header">
+                <div class="matrix-header-title">
+                    <i data-lucide="grid" style="color:var(--primary); width:24px; height:24px;"></i>
+                    <div>
+                        <h3 class="matrix-title">جدول حرارتی امتیازات قسمت‌ها (Ratings Matrix)</h3>
+                        <p class="matrix-subtitle">مرور افقی فصل‌ها (S1 تا S75) به همراه تحلیل گرافیکی نمرات IMDb</p>
+                    </div>
+                </div>
+                <button class="ratings-matrix-close" id="btnCloseRatingsMatrix" aria-label="بستن جدول"><i data-lucide="x"></i></button>
+            </div>
+
+            <!-- راهنمای رنگ‌های حرارتی نمرات -->
+            <div class="ratings-matrix-legend">
+                <div class="legend-item"><span class="legend-box heat-perfect">10.0</span><span>شاهکار مطلق</span></div>
+                <div class="legend-item"><span class="legend-box heat-great">8.5 - 9.9</span><span>عالی</span></div>
+                <div class="legend-item"><span class="legend-box heat-good">7.0 - 8.4</span><span>خوب</span></div>
+                <div class="legend-item"><span class="legend-box heat-avg">5.0 - 6.9</span><span>متوسط</span></div>
+                <div class="legend-item"><span class="legend-box heat-bad">1.0 - 4.9</span><span>ضعیف</span></div>
+                <div class="legend-item"><span class="legend-box heat-unrated">?</span><span>بدون نمره / در آینده</span></div>
+            </div>
+
+            <!-- کانتینر اسکرول افقی ماتریس S1 تا S75 -->
+            <div class="ratings-matrix-scroll-wrapper" id="ratingsMatrixScroll">
+                <table class="ratings-matrix-table" id="ratingsMatrixTable">
+                    <!-- با جاوااسکریپت داینامیک رندر می‌شود -->
+                </table>
+            </div>
+
+            <div class="ratings-matrix-footer">
+                <div class="matrix-footer-info">
+                    <i data-lucide="mouse-pointer-click"></i>
+                    <span>نکته: روی هر نمره نگه دارید تا مشخصات آن قسمت نمایش داده شود.</span>
+                </div>
+                <button class="btn-matrix-done" id="btnMatrixDone">بستن پنجره</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         COMPONENT: RATING CONFIRMATION MODAL
+    ═══════════════════════════════════════ -->
+    <div class="rating-modal hidden" id="ratingConfirmModal" aria-hidden="true">
+        <div class="rating-modal__card glass-refraction">
+            <div class="rating-modal__header">
+                <i data-lucide="help-circle" style="color: #f59e0b;"></i>
+                <span>تایید نهایی امتیاز سریال</span>
+            </div>
+            <div class="rating-modal__body">
+                آیا از ثبت امتیاز <span class="rating-modal__score-preview" id="previewScoreSpan">10 از 10</span> برای این سریال اطمینان دارید؟ 
+                <br><br>
+                <small style="color: var(--text-muted);">نکته: شما حداکثر ۳ بار فرصت ویرایش امتیاز خود را خواهید داشت.</small>
+            </div>
+            <div class="rating-modal__actions">
+                <button class="btn-rating-cancel" id="btnRatingConfirmCancel" type="button">خیر، تغییر نمره</button>
+                <button class="btn-rating-confirm" id="btnRatingConfirmYes" type="button">بله، ثبت نهایی</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         COMPONENT: TRAILER VIDEO MODAL
+    ═══════════════════════════════════════ -->
+    <div class="trailer-modal hidden" id="trailerModal" aria-hidden="true">
+        <div class="trailer-modal__card glass-refraction">
+            <div class="trailer-modal__header">
+                <span class="trailer-modal__title" id="modalTrailerTitle"><i data-lucide="play-circle"></i> تریلر رسمی سریال</span>
+                <button class="trailer-modal__close" id="btnCloseTrailer" aria-label="بستن تریلر"><i data-lucide="x"></i></button>
+            </div>
+            <div class="trailer-modal__body">
+                <video id="trailerVideo" controls style="width: 100%; height: auto; border-radius: 12px; display: block;">
+                    <source src="" type="video/mp4" id="videoSource">
+                    مرورگر شما از پخش مستقیم ویدیو پشتیبانی نمی‌کند.
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         COMPONENT: FOOTER
+    ═══════════════════════════════════════ -->
+    <footer class="footer">
+        <div class="footer__inner glass-refraction">
+            <div class="footer__bottom" style="border:none; padding:0;">
+                <div>© 2026 - تمامی حقوق مادی و معنوی برای پلتفرم <span style="color:var(--primary); font-weight:700;">zonemovi</span> محفوظ است.</div>
+                <div class="footer__copyright">ساخته شده با <i data-lucide="heart" style="fill: var(--accent); color:var(--accent);"></i> برای عاشقان سریال</div>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTopBtn" aria-label="بازگشت به بالای صفحه">
+        <i data-lucide="arrow-up"></i>
+    </button>
+
+    <div class="filter-modal hidden" id="filterModal" aria-hidden="true"></div>
+
+    <script type="module" src="/src/components/series-single/series-single.js"></script>
+</body>
+</html>

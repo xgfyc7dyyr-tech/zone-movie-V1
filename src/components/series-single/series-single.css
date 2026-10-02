@@ -1,0 +1,661 @@
+/* ═══════════════════════════════════════════════════════════
+   COMPONENT: SERIES SINGLE PAGE EXTENSIONS (DRY ARCHITECTURE)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ۱. ارث‌بری کامل استایل‌های پایه فیلم (هیرو Cinejoy، کامنت‌ها، مدال‌ها، کارت‌های ۳ بعدی) */
+@import '../movie-single/movie-single.css';
+
+/* ۲. بج وضعیت زنده پخش سریال با انیمیشن پالس نئونی */
+.series-live-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    color: #34d399;
+    padding: 5px 14px;
+    border-radius: var(--radius-pill);
+    font-size: 0.76rem;
+    font-weight: 800;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+    animation: fadeIn 0.3s ease;
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 10px #10b981;
+    animation: statusPulseGlow 1.8s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+@keyframes statusPulseGlow {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.4; }
+}
+
+.meta-highlight-tag {
+    color: #818cf8;
+    font-weight: 800;
+    background: rgba(99, 102, 241, 0.15);
+    padding: 1px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ۳. نوار انتخاب فصل و ابزارهای قسمت‌ها (Season Control Bar)
+   ═══════════════════════════════════════════════════════════ */
+.series-season-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-radius: var(--radius-lg);
+    margin-bottom: 24px;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.season-selector-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.season-selector-wrapper label {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.season-selector-wrapper label i {
+    color: var(--primary);
+    width: 18px;
+    height: 18px;
+}
+
+.season-select-field {
+    background: rgba(18, 20, 29, 0.95);
+    border: 1px solid var(--glass-border);
+    color: var(--text-main);
+    padding: 8px 16px;
+    border-radius: var(--radius-pill);
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+    outline: none;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.season-select-field:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 12px var(--primary-glow);
+}
+
+.season-actions-cluster {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* دکمه جدول امتیازات (Ratings Grid Button) */
+.btn-ratings-matrix {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(129, 140, 248, 0.15));
+    border: 1px solid rgba(129, 140, 248, 0.5);
+    color: #fff;
+    border-radius: var(--radius-pill);
+    font-size: 0.82rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+    transition: var(--transition-fast);
+}
+
+.btn-ratings-matrix:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px var(--primary-glow);
+}
+
+.badge-ratings-count {
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 1px 7px;
+    border-radius: var(--radius-pill);
+    font-size: 0.7rem;
+    color: #e2e8f0;
+}
+
+.btn-sort-episodes {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    color: var(--text-secondary);
+    border-radius: var(--radius-pill);
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.btn-sort-episodes:hover {
+    color: var(--text-main);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: var(--primary);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ۴. ساختار کارت هر قسمت سریال (Episode Cards)
+   ═══════════════════════════════════════════════════════════ */
+.episodes-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.episode-card-item {
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--glass-border);
+    overflow: hidden;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.episode-card-item:hover {
+    border-color: rgba(99, 102, 241, 0.35);
+}
+
+.episode-card-item.open {
+    border-color: var(--primary);
+    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.15);
+}
+
+.episode-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    gap: 16px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.02);
+    transition: background var(--transition-fast);
+}
+
+.episode-card-header:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.episode-meta-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+    min-width: 0;
+}
+
+.episode-thumb-wrap {
+    position: relative;
+    width: 140px;
+    height: 85px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    background: #000;
+}
+
+.episode-thumb-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-smooth);
+}
+
+.episode-card-item:hover .episode-thumb-wrap img {
+    transform: scale(1.08);
+}
+
+.episode-number-badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: rgba(9, 10, 15, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 900;
+    padding: 2px 7px;
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+}
+
+.episode-duration-badge {
+    position: absolute;
+    bottom: 6px;
+    left: 6px;
+    background: rgba(9, 10, 15, 0.85);
+    color: #cbd5e1;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 4px;
+}
+
+.episode-info-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.episode-title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.episode-title {
+    font-size: 0.95rem;
+    font-weight: 900;
+    color: var(--text-main);
+}
+
+.episode-imdb-score {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid #f59e0b;
+    color: #f59e0b;
+    font-size: 0.72rem;
+    font-weight: 900;
+    padding: 1px 7px;
+    border-radius: var(--radius-pill);
+}
+
+.episode-air-date {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+.episode-overview {
+    font-size: 0.78rem;
+    color: #cbd5e1;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.episode-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-toggle-ep-dl {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: var(--radius-pill);
+    background: var(--primary);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 800;
+    box-shadow: 0 2px 10px var(--primary-glow);
+    white-space: nowrap;
+}
+
+.episode-chevron {
+    width: 18px;
+    height: 18px;
+    color: var(--text-muted);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.episode-card-item.open .episode-chevron {
+    transform: rotate(180deg);
+    color: var(--primary);
+}
+
+.episode-dl-drawer {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(9, 10, 15, 0.4);
+}
+
+.episode-card-item.open .episode-dl-drawer {
+    grid-template-rows: 1fr;
+    border-top: 1px solid var(--glass-border);
+}
+
+.episode-dl-content {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 16px;
+    transition: padding 0.35s ease;
+}
+
+.episode-card-item.open .episode-dl-content {
+    padding: 16px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ۵. مدال جدول حرارتی امتیازات (IMDb Ratings Heatmap Matrix)
+   ═══════════════════════════════════════════════════════════ */
+.ratings-matrix-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    background: rgba(9, 10, 15, 0.88);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    transition: var(--transition-smooth);
+}
+
+.ratings-matrix-card {
+    width: 100%;
+    max-width: 1280px;
+    max-height: 90vh;
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 24px;
+    gap: 18px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 30px var(--primary-glow);
+    animation: zoomInScale 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.ratings-matrix-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 14px;
+}
+
+.matrix-header-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.matrix-title {
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: #fff;
+}
+
+.matrix-subtitle {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.ratings-matrix-close {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.ratings-matrix-close:hover {
+    background: rgba(239, 68, 68, 0.2);
+    color: var(--accent);
+}
+
+/* راهنمای رنگ‌های حرارتی (Legend) */
+.ratings-matrix-legend {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 8px 14px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--glass-border);
+    font-size: 0.74rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-secondary);
+}
+
+.legend-box {
+    width: 28px;
+    height: 24px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 900;
+    color: #000;
+}
+
+/* رنگ‌های نمرات حرارتی */
+.heat-perfect {
+    background: #10b981 !important;
+    color: #000000 !important;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+    font-weight: 900;
+}
+
+.heat-great {
+    background: #34d399 !important;
+    color: #000000 !important;
+}
+
+.heat-good {
+    background: #facc15 !important;
+    color: #000000 !important;
+}
+
+.heat-avg {
+    background: #fb923c !important;
+    color: #000000 !important;
+}
+
+.heat-bad {
+    background: #f87171 !important;
+    color: #ffffff !important;
+}
+
+.heat-unrated {
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: var(--text-muted) !important;
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+}
+
+/* کانتینر اسکرول افقی ماتریس فصل‌ها (S1 تا S75) */
+.ratings-matrix-scroll-wrapper {
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 52vh;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    background: rgba(9, 10, 15, 0.6);
+    scroll-behavior: smooth;
+    direction: ltr; /* جهت چپ‌به‌راست استاندارد */
+}
+
+.ratings-matrix-scroll-wrapper::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+
+.ratings-matrix-scroll-wrapper::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.ratings-matrix-scroll-wrapper::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+}
+
+.ratings-matrix-table {
+    border-collapse: collapse;
+    width: max-content;
+    text-align: center;
+    font-size: 0.72rem;
+    font-weight: 800;
+}
+
+.ratings-matrix-table th,
+.ratings-matrix-table td {
+    padding: 6px 8px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    min-width: 44px;
+    height: 36px;
+    box-sizing: border-box;
+}
+
+.ratings-matrix-table th {
+    position: sticky;
+    top: 0;
+    background: rgba(18, 22, 32, 0.98);
+    color: var(--primary);
+    font-weight: 900;
+    z-index: 10;
+    border-bottom: 2px solid var(--primary);
+}
+
+.ratings-matrix-table th.col-ep-header {
+    position: sticky;
+    left: 0;
+    z-index: 20;
+    background: rgba(18, 22, 32, 0.98);
+    color: #fff;
+    min-width: 55px;
+}
+
+.ratings-matrix-table td.ep-label {
+    position: sticky;
+    left: 0;
+    background: rgba(18, 22, 32, 0.95);
+    color: var(--text-secondary);
+    font-weight: 800;
+    z-index: 5;
+}
+
+.matrix-cell-score {
+    cursor: pointer;
+    border-radius: 4px;
+    transition: transform 0.15s ease, filter 0.15s ease;
+    user-select: none;
+}
+
+.matrix-cell-score:hover {
+    transform: scale(1.25);
+    z-index: 30;
+    filter: brightness(1.15);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
+}
+
+.ratings-matrix-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--glass-border);
+    padding-top: 14px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.matrix-footer-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.76rem;
+    color: var(--text-muted);
+}
+
+.matrix-footer-info i {
+    color: var(--primary);
+    width: 16px;
+    height: 16px;
+}
+
+.btn-matrix-done {
+    padding: 8px 24px;
+    background: var(--primary);
+    color: #fff;
+    border-radius: var(--radius-pill);
+    font-size: 0.82rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 2px 10px var(--primary-glow);
+}
+
+/* واکنش‌گرایی در موبایل */
+@media (max-width: 768px) {
+    .series-season-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .season-selector-wrapper {
+        justify-content: space-between;
+    }
+    .season-actions-cluster {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .btn-ratings-matrix,
+    .btn-sort-episodes {
+        flex: 1;
+        justify-content: center;
+    }
+    .episode-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .episode-meta-group {
+        width: 100%;
+    }
+    .episode-thumb-wrap {
+        width: 100px;
+        height: 65px;
+    }
+    .episode-header-actions {
+        width: 100%;
+        justify-content: space-between;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        padding-top: 10px;
+    }
+    .ratings-matrix-card {
+        padding: 16px;
+    }
+}

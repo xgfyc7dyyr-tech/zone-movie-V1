@@ -1,0 +1,652 @@
+/* ═══════════════════════════════════════════════════════════
+   ZONEMOVI - GLASS HEADER, SEARCH & ADVANCED FILTER STYLES
+   ═══════════════════════════════════════════════════════════ */
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: var(--header-height-default);
+    padding: 10px 20px;
+    transition: var(--transition-smooth);
+}
+
+.header__inner {
+    position: relative;
+    max-width: 1600px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 16px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--glass-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+/* 🏷️ لوگو */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.logo__icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--primary), #818cf8);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    box-shadow: 0 4px 15px var(--primary-glow);
+}
+
+.logo__text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo__title {
+    font-size: 1.25rem;
+    font-weight: 900;
+    line-height: 1.1;
+    background: linear-gradient(135deg, var(--text-main) 0%, #818cf8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.logo__subtitle {
+    font-size: 0.6rem;
+    color: var(--primary);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+/* 🧭 منوی ناوبری */
+.nav__list {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.nav__link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    font-weight: 500;
+    border-radius: var(--radius-pill);
+    transition: var(--transition-fast);
+}
+
+.nav__link:hover, .nav__link--active {
+    color: var(--text-main);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.nav__link--active {
+    color: var(--primary);
+    background: rgba(99, 102, 241, 0.15);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   2. SEARCH
+   ═══════════════════════════════════════════════════════════ */
+.search-wrapper {
+    position: relative;
+    flex: 1;
+    max-width: 380px;
+    z-index: 100;
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-pill);
+    transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                background-color 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.search-container.expanded {
+    width: 100%;
+    background: rgba(18, 20, 29, 0.95);
+    border-color: var(--primary);
+    box-shadow: 0 0 25px var(--primary-glow);
+}
+
+.search-trigger {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    cursor: pointer;
+    z-index: 3;
+    transition: var(--transition-fast);
+}
+
+.search-container.expanded .search-trigger {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 2px 10px var(--primary-glow);
+}
+
+.search-input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding-right: 48px;
+    padding-left: 76px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 0.88rem;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 2;
+    transition: opacity 0.25s ease 0.05s, visibility 0.25s ease 0.05s;
+}
+
+.search-container.expanded .search-input {
+    opacity: 1;
+    visibility: visible;
+}
+
+.search-filter-btn {
+    position: absolute;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%) scale(0.6);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    background: rgba(99, 102, 241, 0.15);
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 3;
+    transition: var(--transition-fast);
+}
+
+.search-container.expanded .search-filter-btn {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) scale(1);
+}
+
+.search-filter-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.search-close {
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    transform: translateY(-50%) scale(0.6);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 3;
+    transition: var(--transition-fast);
+}
+
+.search-container.expanded .search-close {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) scale(1);
+}
+
+.search-close:hover {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.2);
+}
+
+/* 🏷️ بج نمایش تعداد فیلترهای فعال روی دکمه */
+.filter-badge {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    background: var(--accent);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 900;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border-radius: var(--radius-pill);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px var(--accent-glow);
+    pointer-events: none;
+}
+
+/* 📋 دراپ‌داون نتایج */
+.search-results {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    left: 0;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--glass-shadow);
+    padding: 12px;
+    max-height: 400px;
+    overflow-y: auto;
+    transition: var(--transition-fast);
+}
+
+.search-results__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--glass-border);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.results-filter-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--primary);
+    background: rgba(99, 102, 241, 0.15);
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.results-filter-link:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.search-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 10px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    border-right: 3px solid transparent;
+}
+
+.search-item:hover, .search-item.selected {
+    background: rgba(99, 102, 241, 0.22);
+    border-right-color: var(--primary);
+}
+
+.search-item__poster {
+    width: 38px;
+    height: 50px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.search-item__title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.search-item__meta {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+/* ─────────────────────────────────────────────────────────
+   3. ACTIONS
+   ───────────────────────────────────────────────────────── */
+.header__actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: var(--transition-fast);
+}
+
+.icon-btn:hover {
+    color: var(--text-main);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.btn-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+    border-radius: var(--radius-pill);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #fff;
+    box-shadow: 0 4px 20px var(--primary-glow);
+}
+
+/* ─────────────────────────────────────────────────────────
+   4. iOS FLOATING DOCK
+   ───────────────────────────────────────────────────────── */
+.ios-dock {
+    display: none;
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    height: 62px;
+    z-index: 900;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--glass-shadow);
+    padding: 4px 8px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.dock-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    color: var(--text-muted);
+    font-size: 0.65rem;
+    font-weight: 600;
+    flex: 1;
+    height: 100%;
+    transition: var(--transition-fast);
+}
+
+.dock-item i {
+    width: 20px;
+    height: 20px;
+    transition: var(--transition-fast);
+}
+
+.dock-item:hover, .dock-item--active {
+    color: var(--primary);
+}
+
+.dock-item--active i {
+    transform: translateY(-2px) scale(1.1);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   5. FILTER MODAL - فیلترهای کامل با Sticky Footer
+   ═══════════════════════════════════════════════════════════ */
+.filter-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(9, 10, 15, 0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    transition: var(--transition-smooth);
+}
+
+.filter-modal__card {
+    width: 100%;
+    max-width: 520px;
+    max-height: 88vh;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--glass-shadow);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.filter-modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 12px;
+}
+
+.filter-modal__title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.filter-modal__close {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+}
+
+/* بدنه مودال با اسکرول خنک */
+.filter-modal__body {
+    overflow-y: auto;
+    padding-right: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: right;
+}
+
+.filter-group label {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    font-weight: 700;
+}
+
+.filter-options {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.filter-chip {
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-pill);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.filter-chip.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 2px 10px var(--primary-glow);
+}
+
+/* گرید دو ستونه */
+.filter-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.filter-select {
+    width: 100%;
+    padding: 10px;
+    background: rgba(18, 20, 29, 0.95);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    color: var(--text-main);
+    outline: none;
+    font-family: inherit;
+    font-size: 0.82rem;
+}
+
+/* 📌 دکمه‌های پایینی ثابت (Sticky Footer) */
+.filter-modal__footer {
+    position: sticky;
+    bottom: 0;
+    background: var(--bg-card);
+    padding-top: 14px;
+    margin-top: 12px;
+    border-top: 1px solid var(--glass-border);
+    display: flex;
+    gap: 12px;
+    z-index: 10;
+}
+
+.btn-apply-filter {
+    flex: 2;
+    padding: 12px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+    border-radius: var(--radius-pill);
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px var(--primary-glow);
+}
+
+.btn-reset-filter {
+    flex: 1;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-pill);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.hidden { display: none !important; }
+
+/* 📱 RESPONSIVE */
+@media (max-width: 992px) {
+    .nav { display: none; }
+}
+
+@media (max-width: 640px) {
+    .header { padding: 8px 12px; }
+    .ios-dock { display: flex; }
+    .btn-profile span { display: none; }
+    .btn-profile { padding: 8px; border-radius: 50%; }
+
+    .search-wrapper { position: static; }
+
+    .search-container.expanded {
+        position: absolute;
+        inset: 0;
+        width: 100% !important;
+        height: 100% !important;
+        z-index: 50;
+        border-radius: var(--radius-lg);
+        padding: 0 8px;
+        background: rgba(18, 20, 29, 0.95);
+    }
+
+    .search-results {
+        top: calc(100% + 8px);
+        width: calc(100% - 24px);
+        left: 12px;
+        right: 12px;
+    }
+
+    .filter-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/********************************************************************************
+ *                                                                              *
+ *                                                                              *
+ *                             ===================                              *
+ *                                  فاز اول                                     *
+ *                             ===================                              *
+ *                                                                              *
+ *                                                                              *
+ ********************************************************************************/

@@ -1,0 +1,39 @@
+:root {
+    --bg-dark: #090a0f;
+    --bg-card: #12141d;
+    --primary: #6366f1;
+    --primary-hover: #4f46e5;
+    --primary-glow: rgba(99, 102, 241, 0.4);
+    --accent: #ef4444;
+    --accent-glow: rgba(239, 68, 68, 0.4);
+
+    --text-main: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+
+    --glass-bg: rgba(18, 20, 29, 0.78);
+    --glass-border: rgba(255, 255, 255, 0.14);
+    --glass-blur: blur(25px) saturate(180%);
+    --glass-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-pill: 999px;
+    --header-height-default: 72px;
+
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html.light-mode {
+    --bg-dark: #f1f5f9;
+    --bg-card: #ffffff;
+    --primary: #4f46e5;
+    --text-main: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+    --glass-bg: rgba(255, 255, 255, 0.88);
+    --glass-border: rgba(0, 0, 0, 0.12);
+    --glass-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+}
